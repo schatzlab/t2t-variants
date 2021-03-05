@@ -113,7 +113,7 @@ task splitIntoLanes {
         tmp="${fastq_name%.fastq.gz}"
         read="${tmp##*_}"
 
-        bgzip -cd -@ 8 "~{fastq}" | sed 's/^@[^ ]* /@/g' | awk 'BEGIN {FS = ":"} {lane=$4 ; print $0 | "bgzip -@ 2 > sample_read_lane"lane".fastq.gz"; for (i = 1; i <= 3; i++) {getline ; print $0 | "bgzip -@ 2 > sample_read_lane"lane".fastq.gz"}}'
+        bgzip -cd -@ 8 "~{fastq}" | sed 's/^@[^ ]* /@/g' | awk 'BEGIN {FS = ":"} {lane=$3"."$4 ; print $0 | "bgzip -@ 2 > sample_read_lane"lane".fastq.gz"; for (i = 1; i <= 3; i++) {getline ; print $0 | "bgzip -@ 2 > sample_read_lane"lane".fastq.gz"}}'
 
         for file in *.fastq.gz; do
             echo "Number of lines in $file: $(zcat $file | wc -l)"
@@ -130,8 +130,6 @@ task splitIntoLanes {
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
@@ -178,15 +176,13 @@ task alignLane {
             "./~{read2Name}" | samtools view -Shb -o "~{bamBase}.bam" -
     >>>
 
-    Int diskGb = ceil(18.0 * size(read1, "G"))
+    Int diskGb = ceil(20.0 * size(read1, "G"))
 
     runtime {
         docker : "szarate/t2t_variants"
         disks : "local-disk ${diskGb} SSD"
         memory: "16G"
         cpu : 16
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
@@ -212,8 +208,6 @@ task fixmateLane {
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
@@ -239,8 +233,6 @@ task sortBamLane {
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
@@ -258,15 +250,13 @@ task gatherMergeBam {
         samtools merge -@ "$(nproc)" "~{sampleName}.merged.bam" ~{sep=' ' laneBams}
     >>>
 
-    Int diskGb = ceil(15.0 * size(laneBams[0], "G"))
+    Int diskGb = ceil(1.5 * length(laneBams) * size(laneBams[0], "G"))
 
     runtime {
         docker : "szarate/t2t_variants"
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
@@ -299,8 +289,6 @@ task markDuplicates {
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
@@ -329,8 +317,6 @@ task samtoolsIndex {
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
@@ -356,8 +342,6 @@ task bamtoCram {
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
@@ -393,8 +377,6 @@ task mosdepthStats {
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
@@ -428,8 +410,6 @@ task samtoolsStats {
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
