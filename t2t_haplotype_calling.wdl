@@ -14,329 +14,329 @@ workflow t2t_haplotype_calling {
 
     call haplotypeCaller as hc1 {
         input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr1",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc2 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr2",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc3 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr3",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc4 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr4",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc5 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr5",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc6 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr6",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc7 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr7",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc8 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr8",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc9 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr9",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc10 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr10",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc11 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr11",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc12 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr12",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc13 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr13",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc14 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr14",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc15 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr15",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc16 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr16",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc17 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr17",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc18 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr18",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc19 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr19",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc20 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr20",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    call haplotypeCaller as hc21 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr21",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-    
-    call haplotypeCaller as hc22 {
-        input:
-        refFasta = refFasta,
-        fastaIndex = fastaIndex,
-        fastaDict = fastaDict,
-        cram = cram,
-        cramIndex = cramIndex,
-        chrom = "chr22",
-        ploidy = 2,
-        sampleName = sampleName,
-        enableSpark = enableSpark
-    }
-
-    if (sex == "female") {
-        call haplotypeCaller as hcFemale {
-            input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
             fastaDict = fastaDict,
             cram = cram,
             cramIndex = cramIndex,
-            chrom = "chrX",
+            chrom = "chr1",
             ploidy = 2,
             sampleName = sampleName,
             enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc2 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr2",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc3 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr3",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc4 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr4",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc5 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr5",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc6 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr6",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc7 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr7",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc8 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr8",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc9 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr9",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc10 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr10",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc11 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr11",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc12 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr12",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc13 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr13",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc14 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr14",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc15 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr15",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc16 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr16",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc17 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr17",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc18 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr18",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc19 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr19",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc20 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr20",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    call haplotypeCaller as hc21 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr21",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+    
+    call haplotypeCaller as hc22 {
+        input:
+            refFasta = refFasta,
+            fastaIndex = fastaIndex,
+            fastaDict = fastaDict,
+            cram = cram,
+            cramIndex = cramIndex,
+            chrom = "chr22",
+            ploidy = 2,
+            sampleName = sampleName,
+            enableSpark = enableSpark
+    }
+
+    if (sex == "female") {
+        call haplotypeCaller as hcFemale {
+            input:
+                refFasta = refFasta,
+                fastaIndex = fastaIndex,
+                fastaDict = fastaDict,
+                cram = cram,
+                cramIndex = cramIndex,
+                chrom = "chrX",
+                ploidy = 2,
+                sampleName = sampleName,
+                enableSpark = enableSpark
         }
     }
 
     if (sex == "male") {
         call haplotypeCaller as hcMaleX {
             input:
-            refFasta = refFasta,
-            fastaIndex = fastaIndex,
-            fastaDict = fastaDict,
-            cram = cram,
-            cramIndex = cramIndex,
-            chrom = "chrX",
-            ploidy = 1,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+                refFasta = refFasta,
+                fastaIndex = fastaIndex,
+                fastaDict = fastaDict,
+                cram = cram,
+                cramIndex = cramIndex,
+                chrom = "chrX",
+                ploidy = 1,
+                sampleName = sampleName,
+                enableSpark = enableSpark
         }
         call haplotypeCaller as hcMaleY {
             input:
-            refFasta = refFasta,
-            fastaIndex = fastaIndex,
-            fastaDict = fastaDict,
-            cram = cram,
-            cramIndex = cramIndex,
-            chrom = "chrY",
-            ploidy = 1,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+                refFasta = refFasta,
+                fastaIndex = fastaIndex,
+                fastaDict = fastaDict,
+                cram = cram,
+                cramIndex = cramIndex,
+                chrom = "chrY",
+                ploidy = 1,
+                sampleName = sampleName,
+                enableSpark = enableSpark
         }
     }
 
@@ -386,15 +386,22 @@ task haplotypeCaller {
     String parallelism = if (enableSpark) then "--spark-runner LOCAL --spark-master $(nproc)" else ""
 
     String cramName = '~{basename(cram)}'
+    String fastaName = '~{basename(refFasta)}'
+    String indexName = '~{basename(fastaIndex)}'
+    String dictName = '~{basename(fastaDict)}'
 
     command <<<
         mv "~{cram}" .
         mv "~{cramIndex}" .
 
+        mv "~{refFasta}" .
+        mv "~{fastaIndex}" .
+        mv "~{fastaDict}" .
+
         gatk \
             "~{tool}" \
             --java-options "-Xmx32G -XX:+UseParallelGC -XX:ParallelGCThreads=$(nproc) -Djava.io.tmpdir=/dev/shm" \
-            -R "~{refFasta}" \
+            -R "~{fastaName}" \
             -I ./"~{cramName}" \
             -L "~{chrom}" \
             -pairHMM AVX_LOGLESS_CACHING \
@@ -418,8 +425,8 @@ task haplotypeCaller {
     runtime {
         docker : "szarate/t2t_variants"
         disks : "local-disk ${diskGb} SSD"
-        memory: "12G"
-        cpu : 16
+        memory: "24G"
+        cpu : 2
         preemptible: 3
         maxRetries: 3
     }

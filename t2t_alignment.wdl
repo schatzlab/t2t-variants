@@ -178,15 +178,11 @@ task alignLane {
             "./~{read2Name}" | samtools view -Shb -o "~{bamBase}.bam" -
     >>>
 
-    Int diskGb = ceil(30.0 * size(read1, "G"))
-
     runtime {
         docker : "szarate/t2t_variants"
-        disks : "local-disk ${diskGb} SSD"
+        disks : "local-disk 1000 SSD"
         memory: "64G"
         cpu : 16
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
@@ -262,7 +258,7 @@ task gatherMergeBam {
 
     runtime {
         docker : "szarate/t2t_variants"
-        disks : "local-disk 150 SSD"
+        disks : "local-disk 1500 SSD"
         memory: "12G"
         cpu : 16
         preemptible: 3
