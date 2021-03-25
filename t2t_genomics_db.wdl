@@ -78,7 +78,7 @@ task updateGenomicsDB {
     runtime {
         docker : "szarate/t2t_variants"
         disks : "local-disk 10 SSD"
-        memory: "12G"
-        cpu : 16
+        memory: "64G"
+        cpu : 2
     }
 }

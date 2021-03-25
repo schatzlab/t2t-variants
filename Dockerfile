@@ -1,6 +1,6 @@
 # Set the base image to Ubuntu
 FROM ubuntu:20.04
-# ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # File Author / Maintainer
 MAINTAINER Samantha Zarate
@@ -18,11 +18,16 @@ RUN curl -LO http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
 ENV PATH=/miniconda/bin:${PATH}
 RUN conda update -y conda
 
-# Install other tools
+# Install tools using conda
 RUN conda config --add channels bioconda
-RUN conda install -c bioconda bwa mosdepth picard samtools
+RUN conda install -c bioconda \
+    bwa \
+    mosdepth \
+    picard \
+    samtools \
+    openssl=1.0 \
+    bcftools
 
-# Install dependencies for GATK
 RUN apt-get install -y \
     software-properties-common \
     unzip \

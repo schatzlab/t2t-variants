@@ -420,7 +420,7 @@ task samtoolsStats {
     Int diskGb = ceil(2.0 * size(inputCram, "G"))
 
     runtime {
-        docker : "szarate/t2t_variants"
+        docker : "szarate/t2t_variants:v0.0.2"
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
