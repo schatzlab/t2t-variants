@@ -1,6 +1,6 @@
 version 1.0
 
-workflow bcftools_index {
+workflow bgzip_bcftools_index {
     input {
         File inputVCF
     }
@@ -11,11 +11,12 @@ workflow bcftools_index {
     }
 
     output {
-        File index = bcftools_index.index
+        File bgzipVCF = bgzip_bcftools_index.bgzipVCF
+        File index = bgzip_bcftools_index.index
     }
 }
 
-task bcftools_index {
+task bgzip_bcftools_index {
     input {
         File inputVCF
     }
@@ -23,7 +24,8 @@ task bcftools_index {
     String vcfName = '~{basename(inputVCF)}'
 
     command <<<
-        bcftools index --threads "$(nproc)" "~{inputVCF}" -o "~{vcfName}.csi"
+        bgzip -c "~{inputVCF}" > "~{vcfName}.gz"
+        bcftools index --threads "$(nproc)" "~{vcfName}.vcf.gz" -o "~{vcfName}.gz.csi"
     >>>
 
     Int diskGb = ceil(2.0 * size(inputVCF, "G"))
@@ -38,6 +40,7 @@ task bcftools_index {
     }
 
     output {
-        File index = "~{vcfName}.csi"
+        File bgzipVCF = "~{vcfName}.gz"
+        File index = "~{vcfName}.gz.csi"
     }
 }
