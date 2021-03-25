@@ -5,7 +5,7 @@ workflow bgzip_bcftools_index {
         File inputVCF
     }
 
-    call bcftools_index {
+    call bgzip_bcftools_index {
         input:
             inputVCF = inputVCF
     }
