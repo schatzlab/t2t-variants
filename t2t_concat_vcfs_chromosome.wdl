@@ -1,13 +1,13 @@
 version 1.0
 
-workflow t2t_interval_calling {
+workflow t2t_concat_vcfs_chromosome {
     input {
         Array[File] VCFs
         Array[File] indexes
         String chromosome
     }
 
-    call genotypeInterval {
+    call concatChromosome {
         input:
             VCFs = VCFs,
             indexes = indexes,
@@ -15,11 +15,11 @@ workflow t2t_interval_calling {
     }
 
     output {
-        File chromosomeVCF = genotypeInterval.chromosomeVCF
+        File chromosomeVCF = concatChromosome.chromosomeVCF
     }
 }
 
-task genotypeInterval {
+task concatChromosome {
     input {
         Array[File] VCFs
         Array[File] indexes
