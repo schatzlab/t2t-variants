@@ -60,7 +60,7 @@ task genotypeInterval {
             -R "~{refFasta}" \
             -O "~{interval}.margined.genotyped.vcf" \
             -L "~{chromosome}:~{start}-~{end}" \
-            -V "gendb.gs://~{dbBucket}/genomics_db/~{chromosome}"
+            -V "gendb.gs://~{dbBucket}/genomics_db/~{interval}"
     >>>
 
     runtime {
