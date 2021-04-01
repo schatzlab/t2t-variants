@@ -5,8 +5,8 @@ workflow t2t_genomics_db {
         String dbBucket
         String interval
         String chromosome
-        String start
-        String end
+        String marginedStart
+        String marginedEnd
     }
 
     call generateGenomicsDB {
@@ -14,12 +14,12 @@ workflow t2t_genomics_db {
             dbBucket = dbBucket,
             interval = interval,
             chromosome = chromosome,
-            start = start,
-            end = end
+            start = marginedStart,
+            end = marginedEnd
     }
 
     output {
-        String done = "done"
+        File genomicsDBtar = generateGenomicsDB.genomicsDB
     }
 }
 
@@ -37,11 +37,12 @@ task generateGenomicsDB {
             --java-options "-Xmx32G -XX:+UseParallelGC -XX:ParallelGCThreads=$(nproc) -Djava.io.tmpdir=/dev/shm" \
             GenomicsDBImport \
             --sample-name-map "gs://~{dbBucket}/sample_maps/~{chromosome}_sample_map.tsv" \
-            --overwrite-existing-genomicsdb-workspace true \
-            --genomicsdb-workspace-path "gs://~{dbBucket}/genomics_db/~{interval}" \
+            --genomicsdb-workspace-path "./~{interval}" \
             --reader-threads $(nproc) \
             -L "~{chromosome}:~{start}-~{end}" \
             --batch-size 50
+        
+        tar -cf "~{interval}.tar" "./~{interval}"
     >>>
 
     runtime {
@@ -49,5 +50,9 @@ task generateGenomicsDB {
         disks : "local-disk 100 SSD"
         memory: "32G"
         cpu : 4
+    }
+
+    output {
+        File genomicsDB = "~{interval}.tar"
     }
 }

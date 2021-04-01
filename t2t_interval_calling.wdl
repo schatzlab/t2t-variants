@@ -5,11 +5,13 @@ workflow t2t_interval_calling {
         File refFasta
         File refIndex
         File refDict
+        File genomicsDBtar
         String interval
         String chromosome
         String start
+        String marginedStart
         String end
-        String dbBucket
+        String marginedEnd
     }
 
     call genotypeInterval {
@@ -17,11 +19,11 @@ workflow t2t_interval_calling {
             refFasta = refFasta,
             refIndex = refIndex,
             refDict = refDict,
+            genomicsDBtar = genomicsDBtar,
             interval = interval,
             chromosome = chromosome,
-            start = start,
-            end = end,
-            dbBucket = dbBucket
+            start = marginedStart,
+            end = marginedEnd
     }
 
     call trimMarginVCF {
@@ -46,28 +48,34 @@ task genotypeInterval {
         File refFasta
         File refIndex
         File refDict
+        File genomicsDBtar
         String interval
         String chromosome
         String start
         String end
-        String dbBucket
     }
 
     command <<<
+        tar -xf "~{genomicsDBtar}"
+
         gatk \
             --java-options -Xmx8G \
             GenotypeGVCFs \
             -R "~{refFasta}" \
             -O "~{interval}.margined.genotyped.vcf" \
             -L "~{chromosome}:~{start}-~{end}" \
-            -V "gendb.gs://~{dbBucket}/genomics_db/~{interval}"
+            -V "gendb://~{interval}" \
+            --only-output-calls-starting-in-intervals \
+            --merge-input-intervals
     >>>
 
     runtime {
         docker : "szarate/t2t_variants"
-        disks : "local-disk 10 SSD"
+        disks : "local-disk 50 SSD"
         memory: "12G"
         cpu : 4
+        preemptible: 2
+        maxRetries: 2
     }
 
     output {
@@ -104,9 +112,11 @@ task trimMarginVCF {
 
     runtime {
         docker : "szarate/t2t_variants"
-        disks : "local-disk 10 SSD"
+        disks : "local-disk 50 SSD"
         memory: "12G"
         cpu : 4
+        preemptible: 2
+        maxRetries: 2
     }
 
     output {
