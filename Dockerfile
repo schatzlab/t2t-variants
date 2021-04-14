@@ -44,3 +44,8 @@ RUN apt-get install -y \
 RUN wget -q https://github.com/broadinstitute/gatk/releases/download/4.1.9.0/gatk-4.1.9.0.zip -O /gatk-4.1.9.0.zip
 RUN unzip -q /gatk-4.1.9.0.zip -d /
 ENV PATH=/gatk-4.1.9.0:${PATH}
+
+# Install bedtools
+RUN wget https://github.com/arq5x/bedtools2/releases/download/v2.30.0/bedtools.static.binary
+RUN mv bedtools.static.binary bin/bedtools
+RUN chmod a+x bin/bedtools
