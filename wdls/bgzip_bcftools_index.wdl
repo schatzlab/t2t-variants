@@ -25,7 +25,7 @@ task bgzip_bcftools_index {
 
     command <<<
         bgzip -c "~{inputVCF}" > "~{vcfName}.gz"
-        bcftools index --threads "$(nproc)" "~{vcfName}.vcf.gz" -o "~{vcfName}.gz.csi"
+        bcftools index --threads "$(nproc)" "~{vcfName}.gz" -o "~{vcfName}.gz.csi"
     >>>
 
     Int diskGb = ceil(2.0 * size(inputVCF, "G"))

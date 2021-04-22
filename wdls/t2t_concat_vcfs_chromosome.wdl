@@ -32,7 +32,7 @@ task concatChromosome {
 
     runtime {
         docker : "szarate/t2t_variants"
-        disks : "local-disk 100 SSD"
+        disks : "local-disk 8000 SSD"
         memory: "12G"
         cpu : 4
     }
