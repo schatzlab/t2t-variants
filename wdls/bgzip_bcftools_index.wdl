@@ -35,8 +35,6 @@ task bgzip_bcftools_index {
         disks : "local-disk ${diskGb} SSD"
         memory: "4G"
         cpu : 2
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
