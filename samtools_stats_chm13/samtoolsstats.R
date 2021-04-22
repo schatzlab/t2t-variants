@@ -41,6 +41,12 @@ pdf("plot/superpopulation_cnt.pdf", width=11, height=8.5)
 ggplot(stats, aes(Superpopulation_code, fill=Superpopulation_code)) + geom_histogram(stat="count")
 dev.off()
 
+png("plot/superpopulation_cnt.png", width=11, height=8.5, units="in", res=300)
+ggplot(stats, aes(Superpopulation_code, fill=Superpopulation_code)) + geom_histogram(stat="count")
+dev.off()
+
+
+
 ggplot(stats, aes(Population_code, fill=Superpopulation_code)) + geom_histogram(stat="count") + theme(axis.text.x = element_text(angle = 90))
 
 ## overall population counts.... there must be a better way to do this
@@ -56,6 +62,10 @@ pdf("plot/population_cnt.pdf", width=11, height=8.5)
 grid.arrange(p1,p2,p3,p4,p5,nrow=1, widths=c(7,4,5,5,5))
 dev.off()
 
+png("plot/population_cnt.png", width=11, height=8.5, units="in", res=300)
+grid.arrange(p1,p2,p3,p4,p5,nrow=1, widths=c(7,4,5,5,5))
+dev.off()
+
 
 ## Coverage Analysis, mapping rate, insert sizes
 ###############################################################################################################################
@@ -65,6 +75,11 @@ pdf("plot/superpopulation_data.pdf", width=11, height=8.5)
 ggplot(stats, aes(raw_total_sequences, fill=Superpopulation_code)) + geom_density() + facet_grid(stats$Superpopulation_code)
 dev.off()
 
+png("plot/superpopulation_data.png", width=11, height=8.5, units="in", res=300)
+ggplot(stats, aes(raw_total_sequences, fill=Superpopulation_code)) + geom_density() + facet_grid(stats$Superpopulation_code)
+dev.off()
+
+
 ## raw coverage by superpopulation
 pop_cov <- stats %>% group_by(Superpopulation_code) %>% mutate(pop_cov_mean=mean(raw_total_sequences*average_length/3e9)) 
 
@@ -72,10 +87,22 @@ pdf("plot/superpopulation_cov.pdf", width=11, height=8.5)
 ggplot(pop_cov, aes(raw_total_sequences*average_length/3e9, fill=Superpopulation_code)) + geom_density() + geom_vline(aes(xintercept=pop_cov_mean), color="black")+ facet_grid(stats$Superpopulation_code)
 dev.off()
 
+png("plot/superpopulation_cov.png", width=11, height=8.5, units="in", res=300)
+ggplot(pop_cov, aes(raw_total_sequences*average_length/3e9, fill=Superpopulation_code)) + geom_density() + geom_vline(aes(xintercept=pop_cov_mean), color="black")+ facet_grid(stats$Superpopulation_code)
+dev.off()
+
+
+
 ## Mapping Rate
 pdf("plot/superpopulation_mapping_rate.pdf", width=11, height=8.5)
 ggplot(stats, aes(reads_mapped/raw_total_sequences, fill=Sex)) + geom_density(alpha=0.4) + facet_grid(stats$Superpopulation_code)
 dev.off()
+
+png("plot/superpopulation_mapping_rate.png", width=11, height=8.5, units="in", res=300)
+ggplot(stats, aes(reads_mapped/raw_total_sequences, fill=Sex)) + geom_density(alpha=0.4) + facet_grid(stats$Superpopulation_code)
+dev.off()
+
+
 
 ## Mapping rates by pop + sex
 pop_mapping <- stats %>% group_by(Superpopulation_code, Sex) %>% mutate(pop_mean_mapping=mean(reads_mapped/raw_total_sequences)) 
@@ -145,7 +172,16 @@ pdf("plot/superpopulation_error_rate.pdf", width=11, height=8.5)
 grid.arrange(p1, p2, p3, nrow=3)
 dev.off()
 
+png("plot/superpopulation_error_rate.png", width=11, height=8.5, units="in", res=300)
+grid.arrange(p1, p2, p3, nrow=3)
+dev.off()
+
+
 pdf("plot/superpopulation_error_rate_sex.pdf", width=11, height=8.5)
+ggplot(sex_pop_err, aes(error_rate, fill=Sex)) + geom_density(alpha=0.4) + geom_vline(aes(xintercept=sex_pop_err_mean, color=Sex), size=1.5) + theme(legend.position='top') + facet_grid(stats$Superpopulation_code) 
+dev.off()
+
+png("plot/superpopulation_error_rate_sex.png", width=11, height=8.5, units="in", res=300)
 ggplot(sex_pop_err, aes(error_rate, fill=Sex)) + geom_density(alpha=0.4) + geom_vline(aes(xintercept=sex_pop_err_mean, color=Sex), size=1.5) + theme(legend.position='top') + facet_grid(stats$Superpopulation_code) 
 dev.off()
 
@@ -173,3 +209,8 @@ p3 <- ggplot(pop_unmapped, aes(reads_unmapped/raw_total_sequences, fill=Superpop
 pdf("plot/superpopulation_unmapped_rate.pdf", width=11, height=8.5)
 grid.arrange(p1, p2, p3, nrow=3)
 dev.off()
+
+png("plot/superpopulation_unmapped_rate.png", width=11, height=8.5)
+grid.arrange(p1, p2, p3, nrow=3)
+dev.off()
+

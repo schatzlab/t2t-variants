@@ -21,6 +21,12 @@ pdf("plot/chm13_chromosome_uniqueness.pdf", width=11, height=8.5)
 ggplot(chm_long, aes(x=chr, y=len)) + geom_col(aes(fill=type)) + ggtitle("CHM13 Chromosome Uniquenes (75-mers)") + theme(plot.title = element_text(hjust = 0.5))
 dev.off()
 
+png("plot/chm13_chromosome_uniqueness.png", width=11, height=8.5, units="in", res=300)
+ggplot(chm_long, aes(x=chr, y=len)) + geom_col(aes(fill=type)) + ggtitle("CHM13 Chromosome Uniquenes (75-mers)") + theme(plot.title = element_text(hjust = 0.5))
+dev.off()
+
+
+
 ## hg38
 ###############################################################################
 
@@ -36,12 +42,22 @@ pdf("plot/grch38_chromosome_uniqueness.pdf", width=11, height=8.5)
 ggplot(hg38_long, aes(x=chr, y=len)) + geom_col(aes(fill=type)) + ggtitle("GRCh38 Chromosome Uniquenes (75-mers)") + theme(plot.title = element_text(hjust = 0.5))
 dev.off()
 
+
+png("plot/grch38_chromosome_uniqueness.png", width=11, height=8.5, units="in", res=300)
+ggplot(hg38_long, aes(x=chr, y=len)) + geom_col(aes(fill=type)) + ggtitle("GRCh38 Chromosome Uniquenes (75-mers)") + theme(plot.title = element_text(hjust = 0.5))
+dev.off()
+
+
 ## genome comparison
 ###############################################################################
 
 all_long <- rbind(hg38_long, chm_long)
 
 pdf("plot/cmp_chromosome_uniqueness.pdf", width=11, height=8.5)
+ggplot(all_long, aes(x=sample, y=len)) + geom_col(aes(fill=type)) + facet_grid(~chr) + theme(axis.text.x = element_text(angle = 90)) + ggtitle("Chromosome Uniquenes (75-mers)") + theme(plot.title = element_text(hjust = 0.5))
+dev.off()
+
+png("plot/cmp_chromosome_uniqueness.png", width=11, height=8.5, units="in", res=300)
 ggplot(all_long, aes(x=sample, y=len)) + geom_col(aes(fill=type)) + facet_grid(~chr) + theme(axis.text.x = element_text(angle = 90)) + ggtitle("Chromosome Uniquenes (75-mers)") + theme(plot.title = element_text(hjust = 0.5))
 dev.off()
 
@@ -59,6 +75,11 @@ pdf("plot/cmp_chromosome_extra_unique.pdf", width=11, height=8.5)
 ggplot(extra_unique, aes(x=chr, y=len)) + geom_col(fill=colors[3]) + labs(title="Additional Unique Bases per Chromosome (75 mers)") + theme(plot.title = element_text(hjust = 0.5))
 dev.off()
 
+png("plot/cmp_chromosome_extra_unique.png", width=11, height=8.5, units="in", res=300)
+ggplot(extra_unique, aes(x=chr, y=len)) + geom_col(fill=colors[3]) + labs(title="Additional Unique Bases per Chromosome (75 mers)") + theme(plot.title = element_text(hjust = 0.5))
+dev.off()
+
+
 ## extra total bases per chromosome
 ###############################################################################
 
@@ -69,6 +90,11 @@ pdf("plot/cmp_chromosome_extra_bases.pdf", width=11, height=8.5)
 ggplot(extra_total, aes(x=chr, y=len)) + geom_col(fill=colors[3]) + labs(title="Chromosome length differences (all bases)") + theme(plot.title = element_text(hjust = 0.5))
 dev.off()
 
+png("plot/cmp_chromosome_extra_bases.png", width=11, height=8.5, units="in", res=300)
+ggplot(extra_total, aes(x=chr, y=len)) + geom_col(fill=colors[3]) + labs(title="Chromosome length differences (all bases)") + theme(plot.title = element_text(hjust = 0.5))
+dev.off()
+
+
 ## extra non-n
 ###############################################################################
 
@@ -78,3 +104,8 @@ sum(extra_nonn$len)
 pdf("plot/cmp_chromosome_extra_nonn.pdf", width=11, height=8.5)
 ggplot(extra_nonn, aes(x=chr, y=len)) + geom_col(fill=colors[3]) + labs(title="Chromosome length differences (non-n bases)") + theme(plot.title = element_text(hjust = 0.5))
 dev.off()
+
+png("plot/cmp_chromosome_extra_nonn.png", width=11, height=8.5, units="in", res=300)
+ggplot(extra_nonn, aes(x=chr, y=len)) + geom_col(fill=colors[3]) + labs(title="Chromosome length differences (non-n bases)") + theme(plot.title = element_text(hjust = 0.5))
+dev.off()
+
