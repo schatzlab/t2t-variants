@@ -38,6 +38,7 @@ amr_long <- pivot_longer(amr, cols=2:3, names_to="reference", values_to="snps")
 
 amrp<-ggplot(amr_long) + 
   geom_line(aes(x=af, y=snps, color=reference), alpha=alpha_level, size=size_level) + coord_trans(y="log2") + 
+  geom_point(aes(x=af, y=snps, color=reference)) +
   ggtitle("AMR Allele Frequency Distribution") + xlab("allele frequency") + ylab("Number of Variants")
 
 
@@ -52,6 +53,7 @@ eas_long <- pivot_longer(eas, cols=2:3, names_to="reference", values_to="snps")
 
 easp<-ggplot(eas_long) + 
   geom_line(aes(x=af, y=snps, color=reference), alpha=alpha_level, size=size_level) + coord_trans(y="log2") + 
+  geom_point(aes(x=af, y=snps, color=reference)) +
   ggtitle("EAS Allele Frequency Distribution") + xlab("allele frequency") + ylab("Number of Variants")
 
 
@@ -66,6 +68,7 @@ eur_long <- pivot_longer(eur, cols=2:3, names_to="reference", values_to="snps")
 
 eurp<-ggplot(eur_long) + 
   geom_line(aes(x=af, y=snps, color=reference), alpha=alpha_level, size=size_level) + coord_trans(y="log2") + 
+  geom_point(aes(x=af, y=snps, color=reference)) +
   ggtitle("EUR Allele Frequency Distribution") + xlab("allele frequency") + ylab("Number of Variants")
 
 
@@ -80,6 +83,7 @@ sas_long <- pivot_longer(sas, cols=2:3, names_to="reference", values_to="snps")
 
 sasp<-ggplot(sas_long) + 
   geom_line(aes(x=af, y=snps, color=reference), alpha=alpha_level, size=size_level) + coord_trans(y="log2") + 
+  geom_point(aes(x=af, y=snps, color=reference)) +
   ggtitle("SAS Allele Frequency Distribution") + xlab("allele frequency") + ylab("Number of Variants")
 
 ## Plot all in a grid
