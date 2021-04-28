@@ -34,3 +34,10 @@ $ less batch2.idx | awk '{print $3}' | hashcount
 ## pedigree information
 
 Summary available here: [http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/20130606_g1k_3202_samples_ped_population.txt](http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/20130606_g1k_3202_samples_ped_population.txt)
+
+make a simple summary of samples:
+
+```
+awk '{if (($3 == "0") && ($4 == "0")){s="singleton"} else if (($3!="0") && ($4!="0")){s="trio"} else {s="one_parent"} print $2,s}' 20130606_g1k_3202_samples_ped_population.txt > trio_status.txt
+```
+
