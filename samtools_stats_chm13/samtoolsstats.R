@@ -38,11 +38,11 @@ stats$`percentage_of_properly_paired_reads_(%)` = as.double(stats$`percentage_of
 dir.create("plot")
 
 pdf("plot/superpopulation_cnt.pdf", width=11, height=8.5)
-ggplot(stats, aes(Superpopulation_code, fill=Superpopulation_code)) + geom_histogram(stat="count")
+ggplot(stats, aes(Superpopulation_code, fill=Superpopulation_code)) + geom_histogram(stat="count") + stat_count(aes(y=..count.., label=..count..), geom="text", vjust=-.5) 
 dev.off()
 
 png("plot/superpopulation_cnt.png", width=11, height=8.5, units="in", res=300)
-ggplot(stats, aes(Superpopulation_code, fill=Superpopulation_code)) + geom_histogram(stat="count")
+ggplot(stats, aes(Superpopulation_code, fill=Superpopulation_code)) + geom_histogram(stat="count") + stat_count(aes(y=..count.., label=..count..), geom="text", vjust=-.5) 
 dev.off()
 
 
@@ -52,11 +52,11 @@ ggplot(stats, aes(Population_code, fill=Superpopulation_code)) + geom_histogram(
 ## overall population counts.... there must be a better way to do this
 cnts <- stats %>% count(Population_code, Superpopulation_code)
 colors = hue_pal()(5)
-pcnt = cnts %>% filter(Superpopulation_code=="AFR"); p1 = ggplot(pcnt, aes(x=Population_code, y=n)) + geom_bar(stat='identity', fill=colors[1]) + xlab("AFR") + ylim(0,max(cnts$n)) + theme(axis.text.x = element_text(angle = 90))
-pcnt = cnts %>% filter(Superpopulation_code=="AMR"); p2 = ggplot(pcnt, aes(x=Population_code, y=n)) + geom_bar(stat='identity', fill=colors[2]) + xlab("AMR") + ylim(0,max(cnts$n)) + theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank()) + theme(axis.text.x = element_text(angle = 90))
-pcnt = cnts %>% filter(Superpopulation_code=="EAS"); p3 = ggplot(pcnt, aes(x=Population_code, y=n)) + geom_bar(stat='identity', fill=colors[3]) + xlab("EAS") + ylim(0,max(cnts$n)) + theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank()) + theme(axis.text.x = element_text(angle = 90))
-pcnt = cnts %>% filter(Superpopulation_code=="EUR"); p4 = ggplot(pcnt, aes(x=Population_code, y=n)) + geom_bar(stat='identity', fill=colors[4]) + xlab("EUR") + ylim(0,max(cnts$n)) + theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank()) + theme(axis.text.x = element_text(angle = 90))
-pcnt = cnts %>% filter(Superpopulation_code=="SAS"); p5 = ggplot(pcnt, aes(x=Population_code, y=n)) + geom_bar(stat='identity', fill=colors[5]) + xlab("SAS") + ylim(0,max(cnts$n)) + theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank()) + theme(axis.text.x = element_text(angle = 90))
+pcnt = cnts %>% filter(Superpopulation_code=="AFR"); p1 = ggplot(pcnt, aes(x=Population_code, y=n)) + geom_bar(stat='identity', fill=colors[1]) + xlab("AFR") + ylim(0,max(cnts$n)) + theme(axis.text.x = element_text(angle = 90)) + geom_text(aes(label=n), vjust=-.5)
+pcnt = cnts %>% filter(Superpopulation_code=="AMR"); p2 = ggplot(pcnt, aes(x=Population_code, y=n)) + geom_bar(stat='identity', fill=colors[2]) + xlab("AMR") + ylim(0,max(cnts$n)) + theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank()) + theme(axis.text.x = element_text(angle = 90)) + geom_text(aes(label=n), vjust=-.5)
+pcnt = cnts %>% filter(Superpopulation_code=="EAS"); p3 = ggplot(pcnt, aes(x=Population_code, y=n)) + geom_bar(stat='identity', fill=colors[3]) + xlab("EAS") + ylim(0,max(cnts$n)) + theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank()) + theme(axis.text.x = element_text(angle = 90)) + geom_text(aes(label=n), vjust=-.5)
+pcnt = cnts %>% filter(Superpopulation_code=="EUR"); p4 = ggplot(pcnt, aes(x=Population_code, y=n)) + geom_bar(stat='identity', fill=colors[4]) + xlab("EUR") + ylim(0,max(cnts$n)) + theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank()) + theme(axis.text.x = element_text(angle = 90)) + geom_text(aes(label=n), vjust=-.5)
+pcnt = cnts %>% filter(Superpopulation_code=="SAS"); p5 = ggplot(pcnt, aes(x=Population_code, y=n)) + geom_bar(stat='identity', fill=colors[5]) + xlab("SAS") + ylim(0,max(cnts$n)) + theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank()) + theme(axis.text.x = element_text(angle = 90)) + geom_text(aes(label=n), vjust=-.5)
 
 pdf("plot/population_cnt.pdf", width=11, height=8.5)
 grid.arrange(p1,p2,p3,p4,p5,nrow=1, widths=c(7,4,5,5,5))
@@ -210,7 +210,7 @@ pdf("plot/superpopulation_unmapped_rate.pdf", width=11, height=8.5)
 grid.arrange(p1, p2, p3, nrow=3)
 dev.off()
 
-png("plot/superpopulation_unmapped_rate.png", width=11, height=8.5)
+png("plot/superpopulation_unmapped_rate.png", width=11, height=8.5, units="in", res=300)
 grid.arrange(p1, p2, p3, nrow=3)
 dev.off()
 
