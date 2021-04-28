@@ -41,3 +41,9 @@ make a simple summary of samples:
 awk '{if (($3 == "0") && ($4 == "0")){s="singleton"} else if (($3!="0") && ($4!="0")){s="trio"} else {s="one_parent"} print $2,s}' 20130606_g1k_3202_samples_ped_population.txt > trio_status.txt
 ```
 
+```
+$ awk '{print $2}' trio_status.txt | hashcount
+one_parent	9	0.28%
+singleton	2590	80.86%
+trio	604	18.86%
+```
