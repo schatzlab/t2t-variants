@@ -49,7 +49,7 @@ HG00149 singleton
 HG00150 singleton
 HG00151 singleton
 HG00154 singleton
-HG00155 one_parent
+HG00155 singleton
 HG00157 singleton
 HG00158 singleton
 HG00159 singleton
@@ -376,7 +376,7 @@ HG00766 singleton
 HG00844 singleton
 HG00851 singleton
 HG00864 singleton
-HG00867 one_parent
+HG00867 singleton
 HG00879 singleton
 HG00881 singleton
 HG00956 singleton
@@ -1251,7 +1251,7 @@ HG02561 singleton
 HG02562 singleton
 HG02563 trio
 HG02568 singleton
-HG02569 trio
+HG02569 one_parent
 HG02570 singleton
 HG02571 singleton
 HG02572 trio
@@ -1705,7 +1705,7 @@ HG03442 singleton
 HG03445 singleton
 HG03446 singleton
 HG03449 singleton
-HG03451 one_parent
+HG03451 singleton
 HG03452 singleton
 HG03453 trio
 HG03454 singleton
@@ -2012,7 +2012,7 @@ HG03940 singleton
 HG03941 singleton
 HG03942 trio
 HG03943 singleton
-HG03944 one_parent
+HG03944 singleton
 HG03945 singleton
 HG03947 singleton
 HG03949 singleton
@@ -2478,7 +2478,7 @@ NA18858 singleton
 NA18859 singleton
 NA18860 trio
 NA18861 singleton
-NA18862 one_parent
+NA18862 singleton
 NA18863 trio
 NA18864 singleton
 NA18865 singleton
@@ -2791,7 +2791,7 @@ NA19428 singleton
 NA19429 singleton
 NA19430 singleton
 NA19431 singleton
-NA19434 one_parent
+NA19434 singleton
 NA19435 singleton
 NA19436 singleton
 NA19437 singleton
@@ -2799,7 +2799,7 @@ NA19438 singleton
 NA19439 singleton
 NA19440 singleton
 NA19443 singleton
-NA19445 one_parent
+NA19445 singleton
 NA19446 singleton
 NA19448 singleton
 NA19449 singleton
@@ -3149,7 +3149,7 @@ NA20904 singleton
 NA20905 singleton
 NA20906 singleton
 NA20908 singleton
-NA20910 one_parent
+NA20910 singleton
 NA20911 singleton
 NA21086 singleton
 NA21087 singleton
