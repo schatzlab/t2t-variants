@@ -140,6 +140,17 @@ diff_zoom = ggplot(all_diff) +
 grid.arrange(diff_all, diff_zoom, ncol=1)
 
 
+## extracted "fixed" snps
+fixed = all_diff %>% filter(af > 0.4) %>% filter(af < .6)
+
+ggplot(fixed) +
+  geom_line(aes(x=af, y=diff_snps, color=pop), size=size_level, alpha=alpha_level) + coord_cartesian(ylim=c(-10000,10000)) +
+  ggtitle("Zoomed Allele Frequency Distribution Difference (CHM13 - GRCh38)") + xlab("allele frequency") + ylab("Difference in Number of Variants")
+
+fixed_cnt = all_diff %>% filter(af > 0.495) %>% filter(af < .505)
+sum(fixed_cnt$diff_snps)
+
+
 ## make a nice figure that combines it all together
 ###############################################################################################
 
