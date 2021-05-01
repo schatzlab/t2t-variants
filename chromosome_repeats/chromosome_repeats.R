@@ -6,6 +6,41 @@ library(scales)
 setwd("/Users/mschatz/Dropbox/Documents/Projects/T2T/t2t-variants/chromosome_repeats")
 dir.create("plot")
 
+
+chm = read.table("chm13.uniqueness", header=TRUE)
+chm = chm %>% select(c("k","chr21","chr22"))
+
+N_row = which(grepl("N", chm$k))
+
+for (row in (N_row-1):2)
+{
+  for (col in 2:dim(chm)[2])
+  {
+    chm[row,col] = chm[row,col] - chm[row-1,col]
+  }
+}
+
+all_row = which(grepl("all", chm$k))
+all_row
+
+for (col in 2:dim(chm)[2])
+{
+  chm[all_row,col] = chm[all_row,col] - sum(chm[1:(all_row-1), col])
+}
+  
+chm_long = pivot_longer(chm, cols=c(2,3), names_to="chr", values_to="len")
+
+chm_long
+
+ggplot(chm_long, aes(x=chr, y=len)) + geom_col(aes(fill=k))
+
+
+
+
+
+
+
+
 ## chm13 
 ###############################################################################
 
@@ -42,6 +77,7 @@ pdf("plot/grch38_chromosome_uniqueness.pdf", width=11, height=8.5)
 ggplot(hg38_long, aes(x=chr, y=len)) + geom_col(aes(fill=type)) + ggtitle("GRCh38 Chromosome Uniquenes (75-mers)") + theme(plot.title = element_text(hjust = 0.5))
 dev.off()
 
+hg38_long
 
 png("plot/grch38_chromosome_uniqueness.png", width=11, height=8.5, units="in", res=300)
 ggplot(hg38_long, aes(x=chr, y=len)) + geom_col(aes(fill=type)) + ggtitle("GRCh38 Chromosome Uniquenes (75-mers)") + theme(plot.title = element_text(hjust = 0.5))
