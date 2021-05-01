@@ -27,8 +27,7 @@ then
 fi
 
 ## Process each chromosome, skipping random, HLA, chrUn, alt
-#for chr in `grep -v random summary  | grep -v HLA | grep -v chrUn | grep -v alt`
-for chr in `grep chr21.fa summary`
+for chr in `grep -v random summary  | grep -v HLA | grep -v chrUn | grep -v alt`
 do
   echo "Processing $chr..."
 
