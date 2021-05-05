@@ -1,0 +1,1 @@
+{"subset_vcf_sample_list.subsetVCF":"${this.IBS_singleton_vcf}","subset_vcf_sample_list.subset_bgzip":"${this.IBS_singleton_bgzip}","subset_vcf_sample_list.subset_index":"${this.IBS_singleton_index}","subset_vcf_sample_list.subset_stats":"${this.IBS_singleton_stats}"}

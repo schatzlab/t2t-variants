@@ -1,0 +1,1 @@
+{"subset_vcf_sample_list.inputVCFgz":"${this.singleton_bgzip}","subset_vcf_sample_list.population":"BEB_singleton","subset_vcf_sample_list.sample_list":"gs://fc-47de7dae-e8e6-429c-b760-b4ba49136eee/resources/1kgp/BEB.txt"}
