@@ -1,17 +1,23 @@
-library(dplyr)   # For data manipulation
-library(ggplot2) # For data visualization
+library(ggplot2)
+library(gridExtra)
+library(dplyr)
+library(scales) 
 library(tidyr)
 library(scales)
+library(tibble)
+library(ggallin)
 
 setwd("/Users/mschatz/Dropbox/Documents/Projects/T2T/t2t-variants/chromosome_repeats")
 dir.create("plot")
 
+plot_order=c("N", "all", "250", "100", "50", "25")
+colors = c("darkgrey", brewer_pal(5,"Spectral")(5))
 
-chm = read.table("chm13.uniqueness", header=TRUE)
-chm = chm %>% select(c("k","chr21","chr22"))
+## chm13 uniqueness
+###############################################################################
+chm = read.table("chm13v1.uniqueness", header=TRUE)
 
 N_row = which(grepl("N", chm$k))
-
 for (row in (N_row-1):2)
 {
   for (col in 2:dim(chm)[2])
@@ -21,23 +27,121 @@ for (row in (N_row-1):2)
 }
 
 all_row = which(grepl("all", chm$k))
-all_row
-
 for (col in 2:dim(chm)[2])
 {
   chm[all_row,col] = chm[all_row,col] - sum(chm[1:(all_row-1), col])
 }
-  
-chm_long = pivot_longer(chm, cols=c(2,3), names_to="chr", values_to="len")
+
+chm$k = factor(chm$k, plot_order)
+
+chm_long = pivot_longer(chm, cols=2:24, names_to="chr", values_to="len")
+chm_long$sample = "CHM13v1.0"
+chm_long$chr = factor(chm_long$chr, chm_long$chr[1:23])
 
 chm_long
 
-ggplot(chm_long, aes(x=chr, y=len)) + geom_col(aes(fill=k))
+ggplot(chm_long, aes(x=chr, y=len)) + geom_col(aes(fill=k)) +
+  scale_fill_manual(values=colors) +
+  theme(axis.text.x = element_text(angle = 90)) + ggtitle("CHM13v1 Chromosome Uniquenes") + theme(plot.title = element_text(hjust = 0.5))
+
+
+## hg38 uniqueness
+###############################################################################
+
+hg38 = read.table("hg38.uniqueness", header=TRUE)
+
+N_row = which(grepl("N", hg38$k))
+for (row in (N_row-1):2)
+{
+  for (col in 2:dim(hg38)[2])
+  {
+    hg38[row,col] = hg38[row,col] - hg38[row-1,col]
+  }
+}
+
+all_row = which(grepl("all", hg38$k))
+for (col in 2:dim(hg38)[2])
+{
+  hg38[all_row,col] = hg38[all_row,col] - sum(hg38[1:(all_row-1), col])
+}
+
+hg38$k = factor(hg38$k, plot_order)
+
+hg38_long = pivot_longer(hg38, cols=2:24, names_to="chr", values_to="len")
+hg38_long$sample = "GRCh38"
+hg38_long$chr = factor(hg38_long$chr, chm_long$chr[1:23])
+
+hg38_long
+
+#ggplot(hg38_long, aes(x=chr, y=len)) + geom_col(aes(fill=k)) +
+#  scale_fill_brewer(palette="Spectral") +
+#  theme(axis.text.x = element_text(angle = 90)) + ggtitle("GRCh38 Chromosome Uniquenes") + theme(plot.title = element_text(hjust = 0.5))
+
+ggplot(hg38_long, aes(x=chr, y=len)) + geom_col(aes(fill=k)) +
+  scale_fill_manual(values=colors) +
+  theme(axis.text.x = element_text(angle = 90)) + ggtitle("GRCh38 Chromosome Uniquenes") + theme(plot.title = element_text(hjust = 0.5))
+
+
+## Compare CHM13 with GRCh38
+###############################################################################
+
+all_long <- rbind(hg38_long, chm_long)
+
+all_long
+
+chr_plot = ggplot(all_long, aes(x=sample, y=len)) + 
+  geom_col(aes(fill=k)) + facet_grid(~chr) +
+  scale_fill_manual(values=colors) +
+  theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
+  ggtitle("Chromosome") + theme(plot.title = element_text(hjust = 0.5))
+  
+chr_plot  
+
+chm_total  = chm  %>% rowwise(k) %>% mutate(total=sum(c_across(2:23)))
+hg38_total = hg38 %>% rowwise(k) %>% mutate(total=sum(c_across(2:23)))
+
+chm_total
+hg38_total
+
+total=data.frame(k=chm_total$k, "CHM13v1.0" = chm_total$total, "GRCh38" = hg38_total$total)
+
+total
+
+total_long = pivot_longer(total, cols=2:3, names_to="sample", values_to="len")
+
+total_long
+
+genome_plot = ggplot(total_long, aes(x=sample, y=len)) + 
+  geom_col(aes(fill=k)) +
+  scale_fill_manual(values=colors) +
+  theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
+  ggtitle("Genome") + theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.position="none")
+
+genome_plot
+
+grid.arrange(genome_plot, chr_plot, nrow=1, widths=c(4,27))
 
 
 
 
 
+
+
+total_change=data.frame(k=chm_total$k, "Gains"=chm_total$total - hg38_total$total)
+
+total_change
+
+ggplot(total_change, aes(x=k, y=Gains)) + 
+  geom_col(aes(fill=k)) +
+  scale_fill_manual(values=colors) +
+  ggtitle("Uniqueness Gains") + theme(plot.title = element_text(hjust = 0.5))
+
+
+
+
+## old stuff
+###############################################################################
 
 
 
