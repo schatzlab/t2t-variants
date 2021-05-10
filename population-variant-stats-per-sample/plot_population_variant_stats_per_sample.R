@@ -7,7 +7,7 @@ library(scales)
 library(tibble)
 library(ggallin)
 
-setwd("/Users/mschatz/Dropbox/Documents/Projects/T2T/t2t-variants/population-variant-stats")
+setwd("/Users/mschatz/Dropbox/Documents/Projects/T2T/t2t-variants/population-variant-stats-per-sample")
 
 ## Summarize the populations, only needs to be done once
 #stats <- as.data.frame(t(read.table("../samtools_stats_chm13/2021.04.22.samtools.stats.all.txt", header=TRUE, row.names=1)))
@@ -22,6 +22,7 @@ setwd("/Users/mschatz/Dropbox/Documents/Projects/T2T/t2t-variants/population-var
 populations=read.table("populations.txt", header=TRUE)
 populations
 
+
 ## Load the genome/population variant counts
 cnts = data.frame()
 
@@ -30,12 +31,15 @@ for (genome in c("chm13", "hg38"))
   print(genome)
   for (pop in populations$Population_code)
   {
-    filename = paste0(genome,"/population/",pop,".chr.stats")
+    filename = paste0(genome,"/population/",pop,".pop.psc")
     print(paste("loading", filename))
     tt <- read.table(filename, header=TRUE)
+
+    tt_long = tt %>% 
+      rename(sample=X.3.sample, nNonRefHom=X.5.nNonRefHom, nHets=X.6.nHets, nIndels=X.9.nIndels, nHapAlt=X.13.nHapAlt) %>%
+      select(chr, sample, nNonRefHom, nHets, nIndels, nHapAlt) %>%
+      pivot_longer(cols=c(nNonRefHom, nHets, nIndels, nHapAlt), names_to="type", values_to="count")
     
-    tt$chr = factor(tt$chr, tt$chr)
-    tt_long = pivot_longer(tt, cols=2:3, names_to="type", values_to="count")
     tt_long$genome = genome
     tt_long$population = pop
     
@@ -43,53 +47,32 @@ for (genome in c("chm13", "hg38"))
   }
 }
 
-cnts
+
+head(cnts)
 cnts$population = factor(cnts$population, populations$Population_code)
+head(cnts)
+
+cntall <- cnts %>% group_by(sample, genome, population) %>% summarize(variants=sum(count))
+cntall
+
+cntall = inner_join(cntall, populations, by=c("population"="Population_code"))
+cntall
+
+cntall$population = factor(cntall$population, populations$Population_code)
 
 
-## Plot chr1
-
-chr1 <- cnts %>% filter(chr=="chr1")
-chr1
-
-pchr1 = ggplot(chr1, aes(x=genome, y=count)) + 
-  geom_col(aes(fill=type)) + facet_grid(~population) +
-  scale_fill_brewer(palette="Paired") +
-  theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
-  ggtitle("Chr1 Variant Counts") + theme(plot.title = element_text(hjust = 0.5))
-
-pchr1
 
 
-## Summarize the whole genome
-
-cnts %>% filter(genome=="chm13", population=="MXL") %>% summarize(sum(count))
-
-cntall <- cnts %>% group_by(genome, population, type) %>% summarize(variants = sum(count))
-cntall %>% filter(population=="MXL")
-
-pgenome = ggplot(cntall, aes(x=genome, y=variants)) + 
-  geom_col(aes(fill=type)) + facet_grid(~population) +
-  scale_fill_brewer(palette="Paired") +
+plot = ggplot(cntall, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Superpopulation_code)) + facet_grid(~population) +
   theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
   ggtitle("Genomewide Variant Counts") + theme(plot.title = element_text(hjust = 0.5))
 
-pgenome
+plot
 
-grid.arrange(pchr1, pgenome, ncol=1)
 
-png("pop_variants.png", width=23, height=13, units="in", res=300)
-grid.arrange(pchr1, pgenome, ncol=1)
+png("per_sample_variants.png", width=23, height=13, units="in", res=300)
+plot
 dev.off()
 
 
 
-### todo
-
-cnts
-
-ggplot(cnts, aes(x=genome, y=count)) + 
-  geom_col(aes(fill=type)) + facet_grid(~population + chr) +
-  scale_fill_brewer(palette="Paired") +
-  theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
-  ggtitle("Per Chromosome Variant Counts") + theme(plot.title = element_text(hjust = 0.5))
