@@ -61,13 +61,11 @@ cntall
 cntall$population = factor(cntall$population, populations$Population_code)
 
 
-
-
-plot = ggplot(cntall, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Superpopulation_code)) + facet_grid(~population) +
+plotall = ggplot(cntall, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Superpopulation_code)) + facet_grid(~population) +
   theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
   ggtitle("Genomewide Variant Counts") + theme(plot.title = element_text(hjust = 0.5))
 
-plot
+plotall
 
 
 png("per_sample_variants.png", width=23, height=13, units="in", res=300)
@@ -75,4 +73,34 @@ plot
 dev.off()
 
 
+## Just hets
 
+cnts
+cnthet <- cnts %>% filter(type=="nHets") %>% group_by(sample, genome, population) %>% summarize(variants=sum(count))
+cnthet = inner_join(cnthet, populations, by=c("population"="Population_code"))
+cnthet$population = factor(cntall$population, populations$Population_code)
+
+plothet = ggplot(cnthet, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Superpopulation_code)) + facet_grid(~population) +
+  theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
+  ggtitle("Genomewide Heterzygous Variant Counts") + theme(plot.title = element_text(hjust = 0.5))
+
+plothet
+
+
+## Just homozygous
+
+cnts
+cnthom <- cnts %>% filter(type=="nNonRefHom") %>% group_by(sample, genome, population) %>% summarize(variants=sum(count))
+cnthom = inner_join(cnthom, populations, by=c("population"="Population_code"))
+cnthom$population = factor(cntall$population, populations$Population_code)
+
+plothom = ggplot(cnthom, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Superpopulation_code)) + facet_grid(~population) +
+  theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
+  ggtitle("Genomewide Homozygous Variant Counts") + theme(plot.title = element_text(hjust = 0.5))
+
+plothom
+
+
+## all together
+
+grid.arrange(plotall, plothet, plothom, ncol=1)

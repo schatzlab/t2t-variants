@@ -33,9 +33,17 @@ afrp <- ggplot(afr_long) +
 
 afrp
 
-#scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
-#              labels = trans_format("log10", math_format(10^.x))) +
-  
+## Cummulate number of variants
+afr_cum = afr_long %>% group_by(reference) %>% mutate(cum_snps = cumsum(snps))
+
+afrp_cum <- ggplot(afr_cum) + 
+  geom_line(aes(x=af, y=cum_snps, color=reference), alpha=alpha_level, size=size_level) +
+  geom_point(aes(x=af, y=cum_snps, color=reference)) +
+  ggtitle("AFR Allele Cumulative Frequency Distribution") + xlab("max allele frequency") + ylab("Number of Variants") + labs(tag="A")
+
+afrp_cum
+
+
 
 ## AMR
 ###############################################################################################
@@ -55,6 +63,17 @@ amrp<-ggplot(amr_long) +
 
 amrp
 
+## Cummulate number of variants
+amr_cum = amr_long %>% group_by(reference) %>% mutate(cum_snps = cumsum(snps))
+
+amrp_cum <- ggplot(amr_cum) + 
+  geom_line(aes(x=af, y=cum_snps, color=reference), alpha=alpha_level, size=size_level) +
+  geom_point(aes(x=af, y=cum_snps, color=reference)) +
+  ggtitle("AMR Allele Cumulative Frequency Distribution") + xlab("max allele frequency") + ylab("Number of Variants") + labs(tag="A")
+
+amrp_cum
+
+
 ## EAS
 ###############################################################################################
 
@@ -72,6 +91,17 @@ easp<-ggplot(eas_long) +
   ggtitle("EAS Allele Frequency Distribution") + xlab("allele frequency") + ylab("Number of Variants") + labs(tag="C")
 
 easp
+
+## Cummulate number of variants
+eas_cum = eas_long %>% group_by(reference) %>% mutate(cum_snps = cumsum(snps))
+
+easp_cum <- ggplot(eas_cum) + 
+  geom_line(aes(x=af, y=cum_snps, color=reference), alpha=alpha_level, size=size_level) +
+  geom_point(aes(x=af, y=cum_snps, color=reference)) +
+  ggtitle("EAS Allele Cumulative Frequency Distribution") + xlab("max allele frequency") + ylab("Number of Variants") + labs(tag="A")
+
+easp_cum
+
 
 ## EUR
 ###############################################################################################
@@ -91,6 +121,17 @@ eurp<-ggplot(eur_long) +
 
 eurp
 
+## Cummulate number of variants
+eur_cum = eur_long %>% group_by(reference) %>% mutate(cum_snps = cumsum(snps))
+
+eurp_cum <- ggplot(eur_cum) + 
+  geom_line(aes(x=af, y=cum_snps, color=reference), alpha=alpha_level, size=size_level) +
+  geom_point(aes(x=af, y=cum_snps, color=reference)) +
+  ggtitle("EUR Allele Cumulative Frequency Distribution") + xlab("max allele frequency") + ylab("Number of Variants") + labs(tag="A")
+
+eurp_cum
+
+
 ## SAS
 ###############################################################################################
 
@@ -108,6 +149,17 @@ sasp<-ggplot(sas_long) +
   ggtitle("SAS Allele Frequency Distribution") + xlab("allele frequency") + ylab("Number of Variants") + labs(tag="E")
 
 sasp
+
+## Cummulate number of variants
+sas_cum = sas_long %>% group_by(reference) %>% mutate(cum_snps = cumsum(snps))
+
+sasp_cum <- ggplot(sas_cum) + 
+  geom_line(aes(x=af, y=cum_snps, color=reference), alpha=alpha_level, size=size_level) +
+  geom_point(aes(x=af, y=cum_snps, color=reference)) +
+  ggtitle("SAS Allele Cumulative Frequency Distribution") + xlab("max allele frequency") + ylab("Number of Variants") + labs(tag="A")
+
+sasp_cum
+
 
 ## Plot all in a grid
 ###############################################################################################
