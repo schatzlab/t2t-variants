@@ -188,7 +188,7 @@ diff_zoom = ggplot(all_diff) +
   ggtitle("Zoomed Allele Frequency Distribution Difference (CHM13 - GRCh38)") + 
   xlab("allele frequency") + ylab("Difference in Number of Variants") + labs(tag="G")
 
-grid.arrange(diff_all, diff_zoom, ncol=1)
+grid.arrange(diff_all + labs(tag="e"), diff_zoom, ncol=1)
 
 
 ## extracted "fixed" snps
