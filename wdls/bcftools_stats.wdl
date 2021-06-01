@@ -3,11 +3,15 @@ version 1.0
 workflow bcftools_stats {
     input {
         File inputVCFgz
+        File vcfIndex
+        File regionsBed
     }
 
     call bcftools_stats {
         input:
-            inputVCFgz = inputVCFgz
+            inputVCFgz = inputVCFgz,
+            vcfIndex = vcfIndex,
+            regionsBed = regionsBed
     }
 
     output {
@@ -18,12 +22,18 @@ workflow bcftools_stats {
 task bcftools_stats {
     input {
         File inputVCFgz
+        File vcfIndex
+        File regionsBed
     }
 
     String vcfName = '~{basename(inputVCFgz,".vcf.gz")}'
+    String bedPrefix = '~{basename(regionsBed,".bed")}'
 
     command <<<
-        bcftools stats "~{inputVCFgz}" > "~{vcfName}.bcftools.stats.txt"
+        bcftools stats \
+            -v \
+            --regions-file "~{regionsBed}" \
+            "~{inputVCFgz}" > "~{vcfName}.~{bedPrefix}.stats.txt"
     >>>
 
     Int diskGb = ceil(2.0 * size(inputVCFgz, "G"))
@@ -36,6 +46,6 @@ task bcftools_stats {
     }
 
     output {
-        File stats = "~{vcfName}.bcftools.stats.txt"
+        File stats = "~{vcfName}.~{bedPrefix}.stats.txt"
     }
 }

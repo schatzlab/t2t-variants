@@ -1,22 +1,18 @@
 version 1.0
 
-workflow subset_vcf_sample_list {
+workflow filter_ac_variants {
     input {
-        File inputVCF
-        File sample_list
-        String population
+        File inputVCFgz
     }
 
-    call bcftools_view_subset {
+    call bcftools_view_ac {
         input:
-            inputVCF = inputVCF,
-            sample_list = sample_list,
-            population = population
+            inputVCFgz = inputVCFgz
     }
 
     call bgzip_bcftools_index {
         input:
-            inputVCF = bcftools_view_subset.subsetVCF
+            inputVCF = bcftools_view_ac.subsetVCF
     }
 
     call bcftools_stats {
@@ -25,42 +21,37 @@ workflow subset_vcf_sample_list {
     }
 
     output {
-        File subsetVCF = bcftools_view_subset.subsetVCF
+        File subsetVCF = bcftools_view_ac.subsetVCF
         File subset_bgzip = bgzip_bcftools_index.bgzipVCF
         File subset_index = bgzip_bcftools_index.index
         File subset_stats = bcftools_stats.stats
     }
 }
 
-task bcftools_view_subset {
+task bcftools_view_ac {
     input {
-        File inputVCF
-        File sample_list
-        String population
+        File inputVCFgz
     }
 
-    String vcfPrefix = '~{basename(inputVCF,".vcf")}'
+    String vcfPrefix = '~{basename(inputVCFgz,".vcf.gz")}'
 
     command <<<
         bcftools view \
-            -S "~{sample_list}" \
-            --force-samples \
-            "~{inputVCF}" > "~{vcfPrefix}.~{population}.vcf"
+            --min-ac 1 \
+            "~{inputVCFgz}" > "~{vcfPrefix}.variants.vcf"
     >>>
 
-    Int diskGb = ceil(2.0 * size(inputVCF, "G"))
+    Int diskGb = ceil(5.0 * size(inputVCFgz, "G"))
 
     runtime {
         docker : "szarate/t2t_variants"
         disks : "local-disk ${diskGb} SSD"
         memory: "4G"
         cpu : 2
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
-        File subsetVCF = "~{vcfPrefix}.~{population}.vcf"
+        File subsetVCF = "~{vcfPrefix}.variants.vcf"
     }
 }
 
@@ -84,7 +75,7 @@ task bgzip_bcftools_index {
         memory: "4G"
         cpu : 2
         preemptible: 3
-        maxRetries: 3
+        maxRetries: 2
     }
 
     output {
@@ -112,7 +103,7 @@ task bcftools_stats {
         memory: "4G"
         cpu : 2
         preemptible: 3
-        maxRetries: 3
+        maxRetries: 2
     }
 
     output {

@@ -39,15 +39,11 @@ task get_pass_records {
         bcftools view -f PASS "~{inputVCFgz}" > "~{vcfPrefix}.pass.vcf"
     >>>
 
-    Int diskGb = ceil(20.0 * size(inputVCFgz, "G"))
-
     runtime {
         docker : "szarate/t2t_variants"
-        disks : "local-disk ${diskGb} SSD"
+        disks : "local-disk 2500 SSD"
         memory: "4G"
         cpu : 2
-        preemptible: 3
-        maxRetries: 3
     }
 
     output {
