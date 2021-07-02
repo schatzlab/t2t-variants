@@ -23,12 +23,13 @@ afr <- data.frame(af=chm_afr$X.3.allele.frequency, chm13=chm_afr$X.4.number.of.S
 afr_long <- pivot_longer(afr, cols=2:3, names_to="reference", values_to="snps")
 
 ## filter af == 0
-afr_long = afr_long %>% filter(af > 0)
+#afr_long = afr_long %>% filter(af > 0)
 
 afrp <- ggplot(afr_long) + 
   geom_line(aes(x=af, y=snps, color=reference), alpha=alpha_level, size=size_level) +
   geom_point(aes(x=af, y=snps, color=reference)) +
   scale_y_log10() +
+  scale_colour_manual(values=c(chm13="#FD690F",hg38="#1B62A5")) +
   ggtitle("AFR Allele Frequency Distribution") + xlab("allele frequency") + ylab("Number of Variants") + labs(tag="A")
 
 afrp
@@ -53,12 +54,13 @@ hg38_amr <- read.table("singleton_grch38_AMR_autosomes_summarized.txt.af", heade
 
 amr<-data.frame(af=chm_amr$X.3.allele.frequency, chm13=chm_amr$X.4.number.of.SNPs, hg38=hg38_amr$X.4.number.of.SNPs)
 amr_long <- pivot_longer(amr, cols=2:3, names_to="reference", values_to="snps")
-amr_long = amr_long %>% filter(af > 0)
+#amr_long = amr_long %>% filter(af > 0)
 
 amrp<-ggplot(amr_long) + 
   geom_line(aes(x=af, y=snps, color=reference), alpha=alpha_level, size=size_level) +
   geom_point(aes(x=af, y=snps, color=reference)) +
   scale_y_log10() +
+  scale_colour_manual(values=c(chm13="#FD690F",hg38="#1B62A5")) +
   ggtitle("AMR Allele Frequency Distribution") + xlab("allele frequency") + ylab("Number of Variants") + labs(tag="B")
 
 amrp
@@ -82,12 +84,13 @@ hg38_eas <- read.table("singleton_grch38_EAS_autosomes_summarized.txt.af", heade
 
 eas<-data.frame(af=chm_eas$X.3.allele.frequency, chm13=chm_eas$X.4.number.of.SNPs, hg38=hg38_eas$X.4.number.of.SNPs)
 eas_long <- pivot_longer(eas, cols=2:3, names_to="reference", values_to="snps")
-eas_long = eas_long %>% filter(af > 0)
+#eas_long = eas_long %>% filter(af > 0)
 
 easp<-ggplot(eas_long) + 
   geom_line(aes(x=af, y=snps, color=reference), alpha=alpha_level, size=size_level) +
   geom_point(aes(x=af, y=snps, color=reference)) +
   scale_y_log10() +
+  scale_colour_manual(values=c(chm13="#FD690F",hg38="#1B62A5")) +
   ggtitle("EAS Allele Frequency Distribution") + xlab("allele frequency") + ylab("Number of Variants") + labs(tag="C")
 
 easp
@@ -111,12 +114,13 @@ hg38_eur <- read.table("singleton_grch38_EUR_autosomes_summarized.txt.af", heade
 
 eur<-data.frame(af=chm_eur$X.3.allele.frequency, chm13=chm_eur$X.4.number.of.SNPs, hg38=hg38_eur$X.4.number.of.SNPs)
 eur_long <- pivot_longer(eur, cols=2:3, names_to="reference", values_to="snps")
-eur_long = eur_long %>% filter(af > 0)
+#eur_long = eur_long %>% filter(af > 0)
 
 eurp<-ggplot(eur_long) + 
   geom_line(aes(x=af, y=snps, color=reference), alpha=alpha_level, size=size_level) +
   geom_point(aes(x=af, y=snps, color=reference)) +
   scale_y_log10() +
+  scale_colour_manual(values=c(chm13="#FD690F",hg38="#1B62A5")) +
   ggtitle("EUR Allele Frequency Distribution") + xlab("allele frequency") + ylab("Number of Variants") + labs(tag="D")
 
 eurp
@@ -140,12 +144,13 @@ hg38_sas <- read.table("singleton_grch38_SAS_autosomes_summarized.txt.af", heade
 
 sas<-data.frame(af=chm_sas$X.3.allele.frequency, chm13=chm_sas$X.4.number.of.SNPs, hg38=hg38_sas$X.4.number.of.SNPs)
 sas_long <- pivot_longer(sas, cols=2:3, names_to="reference", values_to="snps")
-sas_long = sas_long %>% filter(af > 0)
+#sas_long = sas_long %>% filter(af > 0)
 
 sasp<-ggplot(sas_long) + 
   geom_line(aes(x=af, y=snps, color=reference), alpha=alpha_level, size=size_level) +
   geom_point(aes(x=af, y=snps, color=reference)) +
   scale_y_log10() +
+  scale_colour_manual(values=c(chm13="#FD690F",hg38="#1B62A5")) +
   ggtitle("SAS Allele Frequency Distribution") + xlab("allele frequency") + ylab("Number of Variants") + labs(tag="E")
 
 sasp
@@ -166,6 +171,35 @@ sasp_cum
 
 grid.arrange(afrp,amrp,easp,eurp,sasp,ncol=1)
 
+grid.arrange(afrp + theme(legend.position="none"),
+             amrp + theme(legend.position="none"),
+             easp + theme(legend.position="none"),
+             eurp + theme(legend.position="none"),
+             sasp + theme(legend.position="none"), ncol=5)
+
+
+
+## make a faceted plot
+###############################################################################################
+
+all_long <- rbind(afr_long %>% add_column(pop="AFR"),
+                  amr_long %>% add_column(pop="AMR"),
+                  eas_long %>% add_column(pop="EAS"),
+                  eur_long %>% add_column(pop="EUR"),
+                  sas_long %>% add_column(pop="SAS"))
+
+
+all_longp <- ggplot(all_long) + 
+  geom_line(aes(x=af, y=snps, color=reference), alpha=alpha_level, size=size_level) +
+  geom_point(aes(x=af, y=snps, color=reference)) + facet_grid(~pop) +
+  scale_y_log10() +
+  ggtitle("Allele Frequency") + xlab("allele frequency") + ylab("Number of Variants") + 
+  scale_colour_manual(labels=c(hg38="GRCh38", chm13="CHM13"), values=c(hg38="#1B62A5",chm13="#FD690F"), guide=guide_legend(reverse=TRUE)) +
+  theme(legend.position=c(.96,.85), legend.title=element_blank(), legend.background=element_rect(colour = "transparent", fill = "white")) 
+
+all_longp
+
+
 
 ## plot the difference in the number of variants
 ###############################################################################################
@@ -179,16 +213,53 @@ sasd=data.frame(af=chm_sas$X.3.allele.frequency, diff_snps=chm_sas$X.4.number.of
 all_diff = bind_rows(afrd, amrd, easd, eurd, sasd)
 
 diff_all = ggplot(all_diff) +
-  geom_line(aes(x=af, y=diff_snps, color=pop), size=size_level, alpha=alpha_level) +
-  ggtitle("Allele Frequency Distribution Difference (CHM13 - GRCh38)") + 
+  geom_line(aes(x=af, y=diff_snps, color=pop), size=size_level, alpha=alpha_level) + 
+  ggtitle("AF Difference (CHM13 - GRCh38)") + 
   xlab("allele frequency") + ylab("Difference in Number of Variants") + labs(tag="F")
 
+
+diff_all + theme(legend.position=c(.5,.1), legend.title=element_blank(), legend.background=element_rect(colour = "transparent", fill = "white")) + guides(colour = guide_legend(nrow = 1)) + labs(tag=NULL)
+
+
+
 diff_zoom = ggplot(all_diff) +
-  geom_line(aes(x=af, y=diff_snps, color=pop), size=size_level, alpha=alpha_level) + coord_cartesian(ylim=c(-10000,10000)) +
+  geom_line(aes(x=af, y=diff_snps, color=pop), size=size_level, alpha=alpha_level) + coord_cartesian(ylim=c(-10000,10000), xlim=c(0.48,.52)) +
   ggtitle("Zoomed Allele Frequency Distribution Difference (CHM13 - GRCh38)") + 
   xlab("allele frequency") + ylab("Difference in Number of Variants") + labs(tag="G")
 
 grid.arrange(diff_all + labs(tag="e"), diff_zoom, ncol=1)
+
+
+## composite plot with AF and AF-difference
+###################################################################################################
+
+xx=.50
+yy=.90
+
+lay=rbind(c(1,2,3,4,5),
+          c(NA,NA,NA,NA,NA),
+          c(6,6,NA,NA,NA))
+          
+
+grid.arrange(afrp + theme(legend.position=c(xx,yy), legend.title=element_blank()) + guides(colour = guide_legend(nrow = 1)) + ggtitle("AFR AF") + labs(tag=NULL),
+             amrp + theme(legend.position=c(xx,yy), legend.title=element_blank()) + guides(colour = guide_legend(nrow = 1)) + ggtitle("AMR AF") + labs(tag=NULL),
+             easp + theme(legend.position=c(xx,yy), legend.title=element_blank()) + guides(colour = guide_legend(nrow = 1)) + ggtitle("EAS AF") + labs(tag=NULL),
+             eurp + theme(legend.position=c(xx,yy), legend.title=element_blank()) + guides(colour = guide_legend(nrow = 1)) + ggtitle("EUR AF") + labs(tag=NULL),
+             sasp + theme(legend.position=c(xx,yy), legend.title=element_blank()) + guides(colour = guide_legend(nrow = 1)) + ggtitle("SAS AF") + labs(tag=NULL), 
+             diff_all + theme(legend.position=c(.5,.15), legend.title=element_blank(), legend.background=element_rect(colour = "transparent", fill = "white")) + guides(colour = guide_legend(nrow = 1)) + labs(tag=NULL),
+             layout_matrix=lay, heights=c(10,1,10))
+
+
+## better composite
+
+lay=rbind(c(1,1,1,1,1),
+          c(NA,NA,NA,NA,NA),
+          c(2,2,NA,NA,NA))
+
+grid.arrange(all_longp,
+             diff_all + theme(legend.position=c(.5,.05), legend.title=element_blank(), legend.background=element_rect(colour = "transparent", fill = "white")) + guides(colour = guide_legend(nrow = 1)) + labs(tag=NULL),
+             layout_matrix=lay, heights=c(10,1,10))
+
 
 
 ## extracted "fixed" snps
@@ -200,6 +271,11 @@ ggplot(fixed) +
 
 fixed_cnt = all_diff %>% filter(af > 0.495) %>% filter(af < .505)
 sum(fixed_cnt$diff_snps)
+
+
+ultracommon = all_diff %>% filter(af > 0.95)
+ultracommon %>% group_by(pop) %>% summarize(Sum=sum(diff_snps))
+
 
 
 ## make a nice figure that combines it all together

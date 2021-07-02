@@ -73,6 +73,12 @@ plot
 dev.off()
 
 
+### plot weird sample
+#cdx = cntall %>% filter(population=="CDX") %>% filter(genome="hg38")
+#summary(cdx$variants)
+#cdx %>% filter(sample=="HG00851")
+
+
 ## Just hets
 
 cnts
@@ -82,7 +88,7 @@ cnthet$population = factor(cntall$population, populations$Population_code)
 
 plothet = ggplot(cnthet, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Superpopulation_code)) + facet_grid(~population) +
   theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
-  ggtitle("Genomewide Heterzygous Variant Counts") + theme(plot.title = element_text(hjust = 0.5))
+  ggtitle("Genomewide Heterozygous Variant Counts") + theme(plot.title = element_text(hjust = 0.5))
 
 plothet
 
@@ -96,11 +102,14 @@ cnthom$population = factor(cntall$population, populations$Population_code)
 
 plothom = ggplot(cnthom, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Superpopulation_code)) + facet_grid(~population) +
   theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
-  ggtitle("Genomewide Homozygous Variant Counts") + theme(plot.title = element_text(hjust = 0.5))
+  ggtitle("Genomewide Homozygous Variant Counts") + theme(plot.title = element_text(hjust = 0.5)) 
 
 plothom
 
 
 ## all together
 
-grid.arrange(plotall, plothet, plothom, ncol=1)
+grid.arrange(plotall + theme(legend.position="none"), 
+             plothet + theme(legend.position="none"), 
+             plothom + theme(legend.position="bottom", legend.title=element_blank()) + guides(colour = guide_legend(nrow = 1)), ncol=1)
+
