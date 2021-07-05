@@ -9,7 +9,10 @@ library(ggallin)
 
 setwd("/Users/mschatz/Dropbox/Documents/Projects/T2T/t2t-variants/population-variant-stats-per-sample")
 
-## Summarize the populations, only needs to be done once
+
+## Summarize the Superpopulation/population map, only needs to be done once
+###############################################################################
+
 #stats <- as.data.frame(t(read.table("../samtools_stats_chm13/2021.04.22.samtools.stats.all.txt", header=TRUE, row.names=1)))
 #stats$Population_code      = as.factor(stats$Population_code)
 #stats$Superpopulation_code = as.factor(stats$Superpopulation_code)
@@ -24,6 +27,7 @@ populations
 
 
 ## Load the genome/population variant counts
+###############################################################################
 cnts = data.frame()
 
 for (genome in c("chm13", "hg38"))
@@ -47,41 +51,35 @@ for (genome in c("chm13", "hg38"))
   }
 }
 
-
-head(cnts)
 cnts$population = factor(cnts$population, populations$Population_code)
-head(cnts)
+cnts$genome = factor(cnts$genome, levels=c("hg38", "chm13"), labels=c("GRCh38", "CHM13"))
+
+
+## Plot all
+###############################################################################
 
 cntall <- cnts %>% group_by(sample, genome, population) %>% summarize(variants=sum(count))
-cntall
-
 cntall = inner_join(cntall, populations, by=c("population"="Population_code"))
-cntall
-
 cntall$population = factor(cntall$population, populations$Population_code)
 
-
+## by individual population
 plotall = ggplot(cntall, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Superpopulation_code)) + facet_grid(~population) +
   theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
   ggtitle("Genomewide Variant Counts") + theme(plot.title = element_text(hjust = 0.5))
 
 plotall
 
+## by superpopulation
+plotall_super = ggplot(cntall, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Superpopulation_code)) + facet_grid(~Superpopulation_code) +
+  theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
+  ggtitle("Genomewide Variant Counts") + theme(plot.title = element_text(hjust = 0.5))
 
-png("per_sample_variants.png", width=23, height=13, units="in", res=300)
-plot
-dev.off()
-
-
-### plot weird sample
-#cdx = cntall %>% filter(population=="CDX") %>% filter(genome="hg38")
-#summary(cdx$variants)
-#cdx %>% filter(sample=="HG00851")
+plotall_super
 
 
 ## Just hets
+###############################################################################
 
-cnts
 cnthet <- cnts %>% filter(type=="nHets") %>% group_by(sample, genome, population) %>% summarize(variants=sum(count))
 cnthet = inner_join(cnthet, populations, by=c("population"="Population_code"))
 cnthet$population = factor(cntall$population, populations$Population_code)
@@ -92,10 +90,17 @@ plothet = ggplot(cnthet, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Supe
 
 plothet
 
+plothet_super = ggplot(cnthet, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Superpopulation_code)) + facet_grid(~Superpopulation_code) +
+  theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
+  ggtitle("Genomewide Heterozygous Variant Counts") + theme(plot.title = element_text(hjust = 0.5))
+
+plothet_super
+
+
 
 ## Just homozygous
+###############################################################################
 
-cnts
 cnthom <- cnts %>% filter(type=="nNonRefHom") %>% group_by(sample, genome, population) %>% summarize(variants=sum(count))
 cnthom = inner_join(cnthom, populations, by=c("population"="Population_code"))
 cnthom$population = factor(cntall$population, populations$Population_code)
@@ -106,10 +111,24 @@ plothom = ggplot(cnthom, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Supe
 
 plothom
 
+plothom_super = ggplot(cnthom, aes(x=genome, y=variants)) + geom_boxplot(aes(fill=Superpopulation_code)) + facet_grid(~Superpopulation_code) +
+  theme(axis.text.x = element_text(hjust=1, angle=90)) + theme(axis.title.x = element_blank()) +
+  ggtitle("Genomewide Homozygous Variant Counts") + theme(plot.title = element_text(hjust = 0.5)) 
 
-## all together
+plothom_super
 
-grid.arrange(plotall + theme(legend.position="none"), 
-             plothet + theme(legend.position="none"), 
-             plothom + theme(legend.position="bottom", legend.title=element_blank()) + guides(colour = guide_legend(nrow = 1)), ncol=1)
 
+
+## Final plot with all panels together
+###############################################################################
+
+grid.arrange(plotall + theme(legend.position="none", axis.text.x=element_blank(), axis.ticks.x=element_blank()),
+             plothet + theme(legend.position="none", axis.text.x=element_blank(), axis.ticks.x=element_blank()),
+             plothom + theme(legend.position="bottom", legend.title=element_blank()) + guides(colour = guide_legend(nrow = 1)), 
+             ncol=1,heights=c(1,1,1.4))
+
+
+grid.arrange(plotall_super + theme(legend.position="none", axis.text.x=element_blank(), axis.ticks.x=element_blank()),
+             plothet_super + theme(legend.position="none", axis.text.x=element_blank(), axis.ticks.x=element_blank()),
+             plothom_super + theme(legend.position="bottom", legend.title=element_blank()) + guides(colour = guide_legend(nrow = 1)), 
+             ncol=1,heights=c(1,1,1.4))
