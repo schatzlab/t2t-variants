@@ -88,7 +88,9 @@ ggplot(pop_cov, aes(raw_total_sequences*average_length/3e9, fill=Superpopulation
 dev.off()
 
 png("plot/superpopulation_cov.png", width=11, height=8.5, units="in", res=300)
-ggplot(pop_cov, aes(raw_total_sequences*average_length/3e9, fill=Superpopulation_code)) + geom_density() + geom_vline(aes(xintercept=pop_cov_mean), color="black")+ facet_grid(stats$Superpopulation_code)
+ggplot(pop_cov, aes(raw_total_sequences*average_length/3e9, fill=Superpopulation_code)) +
+ geom_density() + geom_vline(aes(xintercept=pop_cov_mean), color="black") + facet_grid(stats$Superpopulation_code) +
+ theme(legend.position="bottom", legend.title=element_blank())
 dev.off()
 
 

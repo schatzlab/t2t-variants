@@ -188,6 +188,7 @@ all_long <- rbind(afr_long %>% add_column(pop="AFR"),
                   eur_long %>% add_column(pop="EUR"),
                   sas_long %>% add_column(pop="SAS"))
 
+all_long
 
 all_longp <- ggplot(all_long) + 
   geom_line(aes(x=af, y=snps, color=reference), alpha=alpha_level, size=size_level) +
