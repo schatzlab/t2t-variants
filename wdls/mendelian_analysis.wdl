@@ -5,8 +5,22 @@ workflow mendelian_analysis {
         File refFasta
         File refIndex
         File refDict
-        File inputVCFgz
+        File inputVCF
+        File sample_list
         File pedigree
+        String population
+    }
+
+    call bcftools_view_subset {
+        input:
+            inputVCF = inputVCF,
+            sample_list = sample_list,
+            population = population
+    }
+
+    call bgzip_bcftools_index {
+        input:
+            inputVCF = bcftools_view_subset.subsetVCF
     }
 
     call mendelian_analysis {
@@ -14,12 +28,72 @@ workflow mendelian_analysis {
             refFasta = refFasta,
             refIndex = refIndex,
             refDict = refDict,
-            inputVCFgz = inputVCFgz,
+            inputVCFgz = bgzip_bcftools_index.bgzipVCF,
             pedigree = pedigree
     }
 
     output {
+        File subsetVCF = bcftools_view_subset.subsetVCF
+        File subset_bgzip = bgzip_bcftools_index.bgzipVCF
+        File subset_index = bgzip_bcftools_index.index
         File mendelian_violations = mendelian_analysis.MVtable
+    }
+}
+
+task bcftools_view_subset {
+    input {
+        File inputVCF
+        File sample_list
+        String population
+    }
+
+    String vcfPrefix = '~{basename(inputVCF,".vcf")}'
+
+    command <<<
+        bcftools view \
+            -S "~{sample_list}" \
+            --force-samples \
+            "~{inputVCF}" > "~{vcfPrefix}.~{population}.vcf"
+    >>>
+
+    Int diskGb = ceil(2.0 * size(inputVCF, "G"))
+
+    runtime {
+        docker : "szarate/t2t_variants"
+        disks : "local-disk ${diskGb} SSD"
+        memory: "4G"
+        cpu : 2
+    }
+
+    output {
+        File subsetVCF = "~{vcfPrefix}.~{population}.vcf"
+    }
+}
+
+task bgzip_bcftools_index {
+    input {
+        File inputVCF
+    }
+
+    String vcfName = '~{basename(inputVCF)}'
+
+    command <<<
+        bgzip -@ "$(nproc)" -c "~{inputVCF}" > "~{vcfName}.gz"
+        bcftools index --threads "$(nproc)" "~{vcfName}.gz" -o "~{vcfName}.gz.csi"
+    >>>
+
+    Int diskGb = ceil(2.0 * size(inputVCF, "G"))
+
+    runtime {
+        docker : "szarate/t2t_variants"
+        disks : "local-disk ${diskGb} SSD"
+        memory: "4G"
+        cpu : 2
+    }
+
+    output {
+        File bgzipVCF = "~{vcfName}.gz"
+        File index = "~{vcfName}.gz.csi"
     }
 }
 
