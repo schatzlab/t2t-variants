@@ -3,11 +3,13 @@ version 1.0
 workflow bcftools_stats {
     input {
         File inputVCFgz
+        File samples
     }
 
     call bcftools_stats {
         input:
-            inputVCFgz = inputVCFgz
+            inputVCFgz = inputVCFgz,
+            samples = samples
     }
 
     output {
@@ -18,12 +20,16 @@ workflow bcftools_stats {
 task bcftools_stats {
     input {
         File inputVCFgz
+        File samples
     }
 
     String vcfName = '~{basename(inputVCFgz,".vcf.gz")}'
 
     command <<<
-        bcftools stats "~{inputVCFgz}" > "~{vcfName}.bcftools.stats.txt"
+        bcftools stats \
+            -v \
+            --samples-file "~{samples}" \
+            "~{inputVCFgz}" > "~{vcfName}.per_sample.stats.txt"
     >>>
 
     Int diskGb = ceil(2.0 * size(inputVCFgz, "G"))
@@ -36,6 +42,6 @@ task bcftools_stats {
     }
 
     output {
-        File stats = "~{vcfName}.bcftools.stats.txt"
+        File stats = "~{vcfName}.per_sample.stats.txt"
     }
 }

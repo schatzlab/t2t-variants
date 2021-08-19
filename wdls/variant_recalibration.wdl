@@ -1,6 +1,6 @@
 version 1.0
 
-workflow t2t_recalibration {
+workflow variant_recalibration {
     input {
         File refFasta
         File refIndex

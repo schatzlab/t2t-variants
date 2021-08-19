@@ -1,6 +1,6 @@
 version 1.0
 
-workflow t2t_interval_calling {
+workflow joint_calling_interval {
     input {
         File refFasta
         File refIndex

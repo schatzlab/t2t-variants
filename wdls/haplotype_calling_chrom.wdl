@@ -1,6 +1,6 @@
 version 1.0
 
-workflow t2t_haplotype_calling {
+workflow haplotype_calling_chrom {
     input {
         File refFasta
         File fastaIndex
