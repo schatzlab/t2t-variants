@@ -52,7 +52,7 @@ workflow liftoverVCF {
 task liftoverVCF {
     input {
         File inputVCF
-        File chainjammymall
+        File chain
         File targetFasta
         File targetDict
     }
@@ -73,9 +73,11 @@ task liftoverVCF {
             --MAX_RECORDS_IN_RAM 100000
     >>>
 
+    Int diskGb = ceil(10.0 * size(inputVCF, "G"))
+
     runtime {
         docker : "szarate/t2t_variants"
-        disks : "local-disk 100 SSD"
+        disks : "local-disk ${diskGb} SSD"
         memory: "128G"
         cpu : 12
     }

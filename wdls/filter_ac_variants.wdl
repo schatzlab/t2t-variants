@@ -41,13 +41,13 @@ task bcftools_view_ac {
             "~{inputVCFgz}" > "~{vcfPrefix}.variants.vcf"
     >>>
 
-    Int diskGb = ceil(5.0 * size(inputVCFgz, "G"))
+    Int diskGb = ceil(100.0 * size(inputVCFgz, "G"))
 
     runtime {
         docker : "szarate/t2t_variants"
         disks : "local-disk ${diskGb} SSD"
-        memory: "4G"
-        cpu : 2
+        memory: "16G"
+        cpu : 4
     }
 
     output {
