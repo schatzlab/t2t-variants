@@ -1,10 +1,15 @@
-# t2t-variants
+# Variant analysis scripts and workflows for:
+
+[A complete reference genome improves analysis of human genetic variation](https://www.biorxiv.org/content/10.1101/2021.07.12.452063v1)
+
+Aganezov, S\*, Yan, SM\*, Soto, DC\*, Kirsche, M\*, Zarate, S\*, Avdeyev, P, Taylor, DJ, Shafin, K, Shumate, A, Xiao, C, Wagner, J, McDaniel, J, Olson, ND, Sauria, MEG, Vollger, MR, Rhie, A, Meredith, M, Martin, S, Lee, J, Koren, S, Rosenfeld, J, Paten, B, Layer, R, Chin, CS, Sedlazeck, FJ, Hansen, NF, Miller, DE, Phillippy, AM, Miga, KM, McCoy, RC†, Dennis, MY†, Zook, JW†, Schatz, MC† (2021) bioRxiv. [doi: https://doi.org/10.1101/2021.07.12.452063](https://www.biorxiv.org/content/10.1101/2021.07.12.452063v1)
 
 ## Primary analysis
 - [1000genomes_metadata](1000genomes_metadata): how/where to download metadata for 1000 genomes samples
-- [figures](figure): individual panels from Figure 2 and related supplemental figures
-- [population-variant-stats-per-sample](population-variant-stats-per-sample/): count of variants per sample across population/superpopulation as plotted in Figure 2 and related Supplemental Figures
-- 
+- [figures](figure): individual panels from Figures 2 and 3 along with related supplemental figures
+- [population-variant-stats-per-sample](population-variant-stats-per-sample/): count of variants per sample in 1KGP across population/superpopulation as plotted in Figure 2 and related Supplemental Figures
+- [svs.ipynb](svs.ipynb) Analysis of long read mapping and SV calls
+- [superpopulation-af](superpopulation-af/): Allele frequency of variants in each 1KGP superpopulation as plotted in Figure 2
 - [wdls](wdls): Workflows for processing the 1000 genomes samples in [AnVIL](http://anvilproject.org)
 
 
