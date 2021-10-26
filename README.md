@@ -1,6 +1,4 @@
-# Variant analysis scripts and workflows for:
-
-[A complete reference genome improves analysis of human genetic variation](https://www.biorxiv.org/content/10.1101/2021.07.12.452063v1)
+# [A complete reference genome improves analysis of human genetic variation](https://www.biorxiv.org/content/10.1101/2021.07.12.452063v1)
 
 Aganezov, S\*, Yan, SM\*, Soto, DC\*, Kirsche, M\*, Zarate, S\*, Avdeyev, P, Taylor, DJ, Shafin, K, Shumate, A, Xiao, C, Wagner, J, McDaniel, J, Olson, ND, Sauria, MEG, Vollger, MR, Rhie, A, Meredith, M, Martin, S, Lee, J, Koren, S, Rosenfeld, J, Paten, B, Layer, R, Chin, CS, Sedlazeck, FJ, Hansen, NF, Miller, DE, Phillippy, AM, Miga, KM, McCoy, RC†, Dennis, MY†, Zook, JW†, Schatz, MC† (2021) bioRxiv. [doi: https://doi.org/10.1101/2021.07.12.452063](https://www.biorxiv.org/content/10.1101/2021.07.12.452063v1)
 
