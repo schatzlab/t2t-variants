@@ -130,5 +130,12 @@ grid.arrange(plotall + theme(legend.position="none", axis.text.x=element_blank()
 
 grid.arrange(plotall_super + theme(legend.position="none", axis.text.x=element_blank(), axis.ticks.x=element_blank()),
              plothet_super + theme(legend.position="none", axis.text.x=element_blank(), axis.ticks.x=element_blank()),
-             plothom_super + theme(legend.position="bottom", legend.title=element_blank()) + guides(colour = guide_legend(nrow = 1)), 
+             plothom_super + theme(legend.position="bottom", legend.title=element_blank(), legend.text=element_text(size=12)) + guides(colour = guide_legend(nrow = 1)), 
              ncol=1,heights=c(1,1,1.4))
+
+pdf("variant_cnt.pdf", width=12, height=8)
+grid.arrange(plotall_super + theme(legend.position="none", axis.text.x=element_blank(), axis.ticks.x=element_blank()),
+             plothet_super + theme(legend.position="none", axis.text.x=element_blank(), axis.ticks.x=element_blank()),
+             plothom_super + theme(legend.position="bottom", legend.title=element_blank(), legend.text=element_text(size=12)) + guides(colour = guide_legend(nrow = 1)), 
+             ncol=1,heights=c(1,1,1.4))
+dev.off()

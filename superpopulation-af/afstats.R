@@ -196,10 +196,13 @@ all_longp <- ggplot(all_long) +
   scale_y_log10() +
   ggtitle("Allele Frequency") + xlab("allele frequency") + ylab("Number of Variants") + 
   scale_colour_manual(labels=c(hg38="GRCh38", chm13="CHM13"), values=c(hg38="#1B62A5",chm13="#FD690F"), guide=guide_legend(reverse=TRUE)) +
-  theme(legend.position=c(.96,.85), legend.title=element_blank(), legend.background=element_rect(colour = "transparent", fill = "white")) 
+  theme(legend.position=c(.95,.85), legend.title=element_blank(), legend.background=element_rect(colour = "transparent", fill = "white")) 
 
 all_longp
 
+pdf("afstats.pdf", width=12, height=3.5)
+all_longp
+dev.off()
 
 
 ## plot the difference in the number of variants
@@ -219,8 +222,10 @@ diff_all = ggplot(all_diff) +
   xlab("allele frequency") + ylab("Difference in Number of Variants") + labs(tag="F")
 
 
-diff_all + theme(legend.position=c(.5,.1), legend.title=element_blank(), legend.background=element_rect(colour = "transparent", fill = "white")) + guides(colour = guide_legend(nrow = 1)) + labs(tag=NULL)
 
+pdf("afdiff.pdf", width=6, height=5)
+diff_all + theme(legend.position=c(.5,.1), legend.title=element_blank(), legend.background=element_rect(colour = "transparent", fill = "white")) + guides(colour = guide_legend(nrow = 1)) + labs(tag=NULL)
+dev.off()
 
 
 diff_zoom = ggplot(all_diff) +
