@@ -12,7 +12,7 @@ This directory contains the WDL files used for large-scale short-read small-vari
 - `wdls/variant_recalibration.wdl`: Performs variant recalibration on a VCF file with a number of databases as described in [Aganezov, Yan, Soto, Kirsche, Zarate, *et al*. (2021)](https://doi.org/10.1101/2021.07.12.452063)
 ### Downstream analysis
 - `wdls/combine_mv_tables.wdl`: Given a file of concatenated Mendelian violation tables as produced by GATK VariantEval and a Mendelian violation table header, combines the tables into a summary Mendelian violation table with specific fields (# of variants, # of skipped variants, # of low-quality variants, # of Mendelian violations)
-- `wdls/mendelian_analysis.wdl`: Given a reference FASTA (plus corresopnding index and dict), VCF file, sample list (one line per sample name), pedigree (in ped format), and population, performs an analysis of Mendelian violations using GATK VariantEval
+- `wdls/mendelian_analysis.wdl`: Given a reference FASTA (plus corresponding index and dict), VCF file, sample list (one line per sample name), pedigree (in ped format), and population, performs an analysis of Mendelian violations using GATK VariantEval
 - `wdls/local_ancestry_analysis.wdl`: Given a VCF file, windows BED file, ancestry BED file, population, and chromosome name, performs local ancestry analysis to identify which window corresponds to which ancestry/ancestries
 ### Miscellaneous utilities
 - `wdls/bcftools_stats_region.wdl`: Given a VCF file in bgzip format, its corresponding index, and a BED file containing regions to examine, generates a stats file using `bcftools stats`
