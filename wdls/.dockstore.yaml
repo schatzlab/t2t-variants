@@ -1,0 +1,79 @@
+version: 1.2
+workflows:
+   -  name: download_aspera
+      subclass: WDL
+      primaryDescriptorPath: /wdls/download_aspera.wdl
+   -  name: T2T_alignment
+      subclass: WDL
+      primaryDescriptorPath: /wdls/t2t_alignment.wdl
+   -  name: haplotype_calling_chrom
+      subclass: WDL
+      primaryDescriptorPath: /wdls/haplotype_calling_chrom.wdl
+   -  name: joint_calling_interval
+      subclass: WDL
+      primaryDescriptorPath: /wdls/joint_calling_interval.wdl
+   -  name: concat_vcfs_chromosome
+      subclass: WDL
+      primaryDescriptorPath: /wdls/t2t_concat_vcfs_chromosome.wdl
+   -  name: generate_genomics_db
+      subclass: WDL
+      primaryDescriptorPath: /wdls/t2t_genomics_db.wdl
+   -  name: variant_recalibration
+      subclass: WDL
+      primaryDescriptorPath: /wdls/variant_recalibration.wdl
+   -  name: combine_mv_tables
+      subclass: WDL
+      primaryDescriptorPath: /wdls/combine_mv_tables.wdl
+   -  name: mendelian_analysis
+      subclass: WDL
+      primaryDescriptorPath: /wdls/mendelian_analysis.wdl
+   -  name: local_ancestry_analysis
+      subclass: WDL
+      primaryDescriptorPath: /wdls/local_ancestry_analysis.wdl
+   -  name: bcftools_stats_region
+      subclass: WDL
+      primaryDescriptorPath: /wdls/bcftools_stats_region.wdl
+   -  name: bcftools_stats_samples
+      subclass: WDL
+      primaryDescriptorPath: /wdls/bcftools_stats_samples.wdl
+   -  name: bcftools_stats
+      subclass: WDL
+      primaryDescriptorPath: /wdls/bcftools_stats.wdl
+   -  name: bcftools_view_subset
+      subclass: WDL
+      primaryDescriptorPath: /wdls/bcftools_view_subset.wdl
+   -  name: bgzip_bcftools_index
+      subclass: WDL
+      primaryDescriptorPath: /wdls/bgzip_bcftools_index.wdl
+  -  name: bgzip_tabix
+      subclass: WDL
+      primaryDescriptorPath: /wdls/bgzip_tabix.wdl
+  -  name: concatenate_files
+      subclass: WDL
+      primaryDescriptorPath: /wdls/concatenate_files.wdl
+  -  name: filter_ac_variants
+      subclass: WDL
+      primaryDescriptorPath: /wdls/filter_ac_variants.wdl
+  -  name: filter_af_variants
+      subclass: WDL
+      primaryDescriptorPath: /wdls/filter_af_variants.wdl
+  -  name: get_pass_records
+      subclass: WDL
+      primaryDescriptorPath: /wdls/get_pass_records.wdl
+  -  name: gunzip
+      subclass: WDL
+      primaryDescriptorPath: /wdls/gunzip.wdl
+  -  name: liftover
+      subclass: WDL
+      primaryDescriptorPath: /wdls/liftover.wdl
+  -  name: local_ancestry_analysis
+      subclass: WDL
+      primaryDescriptorPath: /wdls/local_ancestry_analysis.wdl
+  -  name: subset_vcf_with_bed
+      subclass: WDL
+      primaryDescriptorPath: /wdls/subset_vcf_with_bed.wdl
+  -  name: tabix
+      subclass: WDL
+      primaryDescriptorPath: /wdls/tabix.wdl
+
+   
