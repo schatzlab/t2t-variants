@@ -126,7 +126,7 @@ task splitIntoLanes {
     Int diskGb = ceil(10.0 * size(fastq, "G"))
 
     runtime {
-        docker : "szarate/t2t_variants"
+        docker : "szarate/t2t_variants:v0.0.2"
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
@@ -179,7 +179,7 @@ task alignLane {
     >>>
 
     runtime {
-        docker : "szarate/t2t_variants"
+        docker : "szarate/t2t_variants:v0.0.2"
         disks : "local-disk 1000 SSD"
         memory: "64G"
         cpu : 16
@@ -204,7 +204,7 @@ task fixmateLane {
     Int diskGb = ceil(3.0 * size(bam, "G"))
 
     runtime {
-        docker : "szarate/t2t_variants"
+        docker : "szarate/t2t_variants:v0.0.2"
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
@@ -231,7 +231,7 @@ task sortBamLane {
     Int diskGb = ceil(5.0 * size(bam, "G"))
 
     runtime {
-        docker : "szarate/t2t_variants"
+        docker : "szarate/t2t_variants:v0.0.2"
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
@@ -257,7 +257,7 @@ task gatherMergeBam {
     Int diskGb = ceil(3.0 * length(laneBams) * size(laneBams[0], "G"))
 
     runtime {
-        docker : "szarate/t2t_variants"
+        docker : "szarate/t2t_variants:v0.0.2"
         disks : "local-disk 1500 SSD"
         memory: "12G"
         cpu : 16
@@ -291,7 +291,7 @@ task markDuplicates {
     Int diskGb = ceil(5.0 * size(bam, "G"))
 
     runtime {
-        docker : "szarate/t2t_variants"
+        docker : "szarate/t2t_variants:v0.0.2"
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
@@ -321,7 +321,7 @@ task samtoolsIndex {
     Int diskGb = ceil(2.0 * size(alignmentFile, "G"))
 
     runtime {
-        docker : "szarate/t2t_variants"
+        docker : "szarate/t2t_variants:v0.0.2"
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
@@ -348,7 +348,7 @@ task bamtoCram {
     Int diskGb = ceil(2.0 * size(inputBam, "G"))
 
     runtime {
-        docker : "szarate/t2t_variants"
+        docker : "szarate/t2t_variants:v0.0.2"
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16
@@ -385,7 +385,7 @@ task mosdepthStats {
     Int diskGb = ceil(2.0 * size(inputCram, "G"))
 
     runtime {
-        docker : "szarate/t2t_variants"
+        docker : "szarate/t2t_variants:v0.0.2"
         disks : "local-disk ${diskGb} SSD"
         memory: "12G"
         cpu : 16

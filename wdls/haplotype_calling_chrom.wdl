@@ -7,12 +7,16 @@ workflow haplotype_calling_chrom {
         File fastaDict
         File cram
         File cramIndex
+        File? parXbed
+        File? nonparXbed
+        File? parYbed
         String sampleName
+        String chrXname = "chrX"
+        String chrYname = "chrY"
         String sex
-        Boolean enableSpark
     }
 
-    call haplotypeCaller as hc1 {
+    call diploidHC as hc1 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -20,12 +24,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr1",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc2 {
+    call diploidHC as hc2 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -33,12 +35,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr2",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc3 {
+    call diploidHC as hc3 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -46,12 +46,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr3",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc4 {
+    call diploidHC as hc4 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -59,12 +57,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr4",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc5 {
+    call diploidHC as hc5 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -72,12 +68,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr5",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc6 {
+    call diploidHC as hc6 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -85,12 +79,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr6",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc7 {
+    call diploidHC as hc7 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -98,12 +90,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr7",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc8 {
+    call diploidHC as hc8 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -111,12 +101,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr8",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc9 {
+    call diploidHC as hc9 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -124,12 +112,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr9",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc10 {
+    call diploidHC as hc10 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -137,12 +123,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr10",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc11 {
+    call diploidHC as hc11 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -150,12 +134,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr11",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc12 {
+    call diploidHC as hc12 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -163,12 +145,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr12",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc13 {
+    call diploidHC as hc13 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -176,12 +156,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr13",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc14 {
+    call diploidHC as hc14 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -189,12 +167,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr14",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc15 {
+    call diploidHC as hc15 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -202,12 +178,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr15",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc16 {
+    call diploidHC as hc16 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -215,12 +189,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr16",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc17 {
+    call diploidHC as hc17 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -228,12 +200,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr17",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc18 {
+    call diploidHC as hc18 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -241,12 +211,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr18",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc19 {
+    call diploidHC as hc19 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -254,12 +222,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr19",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc20 {
+    call diploidHC as hc20 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -267,12 +233,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr20",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
-    call haplotypeCaller as hc21 {
+    call diploidHC as hc21 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -280,12 +244,10 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr21",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
     
-    call haplotypeCaller as hc22 {
+    call diploidHC as hc22 {
         input:
             refFasta = refFasta,
             fastaIndex = fastaIndex,
@@ -293,50 +255,61 @@ workflow haplotype_calling_chrom {
             cram = cram,
             cramIndex = cramIndex,
             chrom = "chr22",
-            ploidy = 2,
-            sampleName = sampleName,
-            enableSpark = enableSpark
+            sampleName = sampleName
     }
 
     if (sex == "female") {
-        call haplotypeCaller as hcFemale {
+        call diploidHC as hc_XX_X {
             input:
                 refFasta = refFasta,
                 fastaIndex = fastaIndex,
                 fastaDict = fastaDict,
                 cram = cram,
                 cramIndex = cramIndex,
-                chrom = "chrX",
-                ploidy = 2,
-                sampleName = sampleName,
-                enableSpark = enableSpark
+                chrom = chrXname,
+                sampleName = sampleName
         }
     }
 
     if (sex == "male") {
-        call haplotypeCaller as hcMaleX {
+        call sexchrHC as hc_XY_X_nonPAR {
             input:
                 refFasta = refFasta,
                 fastaIndex = fastaIndex,
                 fastaDict = fastaDict,
                 cram = cram,
                 cramIndex = cramIndex,
-                chrom = "chrX",
+                region = chrXname,
+                regionName = "chrX_non_PAR",
+                excludeInterval = parXbed,
                 ploidy = 1,
-                sampleName = sampleName,
-                enableSpark = enableSpark
+                sampleName = sampleName
         }
-        call haplotypeCaller as hcMaleY {
+        call sexchrHC as hc_XY_X_PAR {
             input:
                 refFasta = refFasta,
                 fastaIndex = fastaIndex,
                 fastaDict = fastaDict,
                 cram = cram,
                 cramIndex = cramIndex,
-                chrom = "chrY",
+                region = chrXname,
+                regionName = "chrX_PAR",
+                excludeInterval = nonparXbed,
+                ploidy = 2,
+                sampleName = sampleName
+        }
+        call sexchrHC as hc_XY_Y_nonPAR {
+            input:
+                refFasta = refFasta,
+                fastaIndex = fastaIndex,
+                fastaDict = fastaDict,
+                cram = cram,
+                cramIndex = cramIndex,
+                region = chrYname,
+                regionName = "chrY",
+                excludeInterval = parYbed,
                 ploidy = 1,
-                sampleName = sampleName,
-                enableSpark = enableSpark
+                sampleName = sampleName
         }
     }
 
@@ -363,13 +336,14 @@ workflow haplotype_calling_chrom {
         File chr20_hcVCF = hc20.hcVCF
         File chr21_hcVCF = hc21.hcVCF
         File chr22_hcVCF = hc22.hcVCF
-        File? female_hcVCF = hcFemale.hcVCF
-        File? maleX_hcVCF = hcMaleX.hcVCF
-        File? maleY_hcVCF = hcMaleY.hcVCF
+        File? XX_X_hcVCF = hc_XX_X.hcVCF
+        File? XY_X_non_PAR_hcVCF = hc_XY_X_nonPAR.hcVCF
+        File? XY_X_PAR_hcVCF = hc_XY_X_PAR.hcVCF
+        File? XY_Y_nonPAR_hcVCF = hc_XY_Y_nonPAR.hcVCF
     }
 }
 
-task haplotypeCaller {
+task diploidHC {
     input {
         File refFasta
         File fastaIndex
@@ -378,34 +352,116 @@ task haplotypeCaller {
         File cramIndex
         String chrom
         String sampleName
-        Int ploidy
-        Boolean enableSpark
     }
-
-    String tool = if (enableSpark) then "HaplotypeCallerSpark" else "HaplotypeCaller"
-    String parallelism = if (enableSpark) then "--spark-runner LOCAL --spark-master $(nproc)" else ""
 
     String cramName = '~{basename(cram)}'
     String fastaName = '~{basename(refFasta)}'
-    String indexName = '~{basename(fastaIndex)}'
-    String dictName = '~{basename(fastaDict)}'
+    String refBaseFasta = '~{basename(refFasta, ".fasta")}'
+    String refBase = '~{basename(refBaseFasta, ".fa")}'
 
     command <<<
-        mv "~{cram}" .
-        mv "~{cramIndex}" .
+        mkdir -p inputs/
+        mv "~{cram}" inputs/
+        mv "~{cramIndex}" inputs/
 
-        mv "~{refFasta}" .
-        mv "~{fastaIndex}" .
-        mv "~{fastaDict}" .
+        mv "~{refFasta}" inputs/
+        mv "~{fastaIndex}" inputs/
+        mv "~{fastaDict}" "inputs/~{refBase}.dict"
 
-        gatk \
-            "~{tool}" \
+        gatk HaplotypeCaller \
             --java-options "-Xmx32G -XX:+UseParallelGC -XX:ParallelGCThreads=$(nproc) -Djava.io.tmpdir=/dev/shm" \
-            -R "~{fastaName}" \
-            -I ./"~{cramName}" \
+            -R inputs/"~{fastaName}" \
+            -I inputs/"~{cramName}" \
             -L "~{chrom}" \
             -pairHMM AVX_LOGLESS_CACHING \
             -O "~{sampleName}.~{chrom}.hc.vcf" \
+            -ERC GVCF \
+            -ploidy 2 \
+            -A Coverage \
+            -A DepthPerAlleleBySample \
+            -A DepthPerSampleHC \
+            -A InbreedingCoeff \
+            -A MappingQualityRankSumTest \
+            -A MappingQualityZero \
+            -A QualByDepth \
+            -A ReadPosRankSumTest \
+            -A RMSMappingQuality \
+            -A StrandBiasBySample
+    >>>
+
+    Int diskGb = ceil(2.0 * size(cram, "G"))
+
+    runtime {
+        docker : "szarate/t2t_variants:v0.0.2"
+        disks : "local-disk ${diskGb} SSD"
+        memory: "24G"
+        cpu : 2
+        preemptible: 3
+        maxRetries: 3
+    }
+
+    output {
+        File hcVCF = "~{sampleName}.~{chrom}.hc.vcf"
+    }
+}
+
+task sexchrHC {
+    input {
+        File refFasta
+        File fastaIndex
+        File fastaDict
+        File cram
+        File cramIndex
+        String region
+        File? regionBed
+        String regionName
+        File? excludeInterval
+        String sampleName
+        Int ploidy
+    }
+
+    String excludeName = '~{(if defined(excludeInterval) then basename(select_first([excludeInterval])) else "")}'
+    String regions = '~{(if defined(regionBed) then basename(select_first([regionBed])) else "")}'
+
+    String cramName = '~{basename(cram)}'
+    String fastaName = '~{basename(refFasta)}'
+    String refBaseFasta = '~{basename(refFasta, ".fasta")}'
+    String refBase = '~{basename(refBaseFasta, ".fa")}'
+
+    command <<<
+        mkdir -p inputs/
+
+        mv "~{cram}" inputs/
+        mv "~{cramIndex}" inputs/
+
+        mv "~{refFasta}" inputs/
+        mv "~{fastaIndex}" inputs/
+        mv "~{fastaDict}" "inputs/~{refBase}.dict"
+
+        echo "~{excludeName}"
+        echo "~{regions}"
+
+        if [[ -n "~{regions}" ]]; then
+            mv "~{regionBed}" inputs/
+            specifyRegion="--intervals inputs/~{regions}"
+        else
+            specifyRegion="--intervals ~{region}"
+        fi
+
+        if [[ -n "~{excludeName}" ]]; then
+            mv "~{excludeInterval}" inputs/
+            specifyExclude="--exclude-intervals inputs/~{excludeName}"
+        else
+            specifyExclude=""
+        fi
+
+        gatk HaplotypeCaller \
+            --java-options "-Xmx32G -XX:+UseParallelGC -XX:ParallelGCThreads=$(nproc) -Djava.io.tmpdir=/dev/shm" \
+            -R inputs/"~{fastaName}" \
+            -I inputs/"~{cramName}" \
+            ${specifyRegion} ${specifyExclude} \
+            -pairHMM AVX_LOGLESS_CACHING \
+            -O "~{sampleName}.~{regionName}.hc.vcf" \
             -ERC GVCF \
             -ploidy "~{ploidy}" \
             -A Coverage \
@@ -423,7 +479,7 @@ task haplotypeCaller {
     Int diskGb = ceil(2.0 * size(cram, "G"))
 
     runtime {
-        docker : "szarate/t2t_variants"
+        docker : "szarate/t2t_variants:v0.0.2"
         disks : "local-disk ${diskGb} SSD"
         memory: "24G"
         cpu : 2
@@ -432,6 +488,6 @@ task haplotypeCaller {
     }
 
     output {
-        File hcVCF = "~{sampleName}.~{chrom}.hc.vcf"
+        File hcVCF = "~{sampleName}.~{regionName}.hc.vcf"
     }
 }
