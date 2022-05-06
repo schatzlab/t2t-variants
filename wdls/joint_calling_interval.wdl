@@ -40,6 +40,8 @@ workflow joint_calling_interval {
 
     output {
         File genotypedIntervalVCF = trimMarginVCF.genotypedIntervalVCF
+        File genotypedIntervalVCFgz = trimMarginVCF.genotypedIntervalVCFgz
+        File genotypedIntervalVCFtabix = trimMarginVCF.genotypedIntervalVCFtabix
     }
 }
 
@@ -74,8 +76,8 @@ task genotypeInterval {
         disks : "local-disk 50 SSD"
         memory: "12G"
         cpu : 4
-        preemptible: 2
-        maxRetries: 2
+        preemptible: 3
+        maxRetries: 3
     }
 
     output {
@@ -108,6 +110,9 @@ task trimMarginVCF {
             -V "~{vcfName}.vcf.gz" \
             -L "~{chromosome}:~{start}-~{end}" \
             -O "~{interval}.genotyped.vcf"
+
+        bgzip -c "~{interval}.genotyped.vcf" > "~{interval}.genotyped.vcf.gz"
+        tabix -p vcf "~{interval}.genotyped.vcf.gz"
     >>>
 
     runtime {
@@ -115,11 +120,13 @@ task trimMarginVCF {
         disks : "local-disk 50 SSD"
         memory: "12G"
         cpu : 4
-        preemptible: 2
-        maxRetries: 2
+        preemptible: 3
+        maxRetries: 3
     }
 
     output {
         File genotypedIntervalVCF = "~{interval}.genotyped.vcf"
+        File genotypedIntervalVCFgz = "~{interval}.genotyped.vcf.gz"
+        File genotypedIntervalVCFtabix = "~{interval}.genotyped.vcf.gz.tbi"
     }
 }

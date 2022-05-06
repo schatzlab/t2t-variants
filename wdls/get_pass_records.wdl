@@ -88,7 +88,7 @@ task bcftools_stats {
     String vcfName = '~{basename(inputVCFgz,".vcf.gz")}'
 
     command <<<
-        bcftools stats "~{inputVCFgz}" > "~{vcfName}.bcftools.stats.txt"
+        bcftools stats -v "~{inputVCFgz}" > "~{vcfName}.bcftools.stats.txt"
     >>>
 
     Int diskGb = ceil(2.0 * size(inputVCFgz, "G"))

@@ -65,8 +65,15 @@ workflow variant_recalibration {
             chromosome = chromosome
     }
 
+    call finalizeVCF {
+        input:
+            VCF = applyIndelRecalibration.recalibrated_vcf
+    }
+
     output {
         File recalibratedVCF = applyIndelRecalibration.recalibrated_vcf
+        File recalibratedVCFgz = finalizeVCF.bgzipVCF
+        File recalibratedVCFtabix = finalizeVCF.tabix
     }
 }
 
@@ -124,7 +131,7 @@ task createSNPrecalibration {
             --max-gaussians 2
     >>>
 
-    Int diskGb = ceil(3.0 * size(VCF, "G"))
+    Int diskGb = ceil(20.0 * size(VCF, "G"))
 
     runtime {
         docker : "szarate/t2t_variants"
@@ -180,7 +187,7 @@ task createIndelRecalibration {
             --max-gaussians 1
     >>>
 
-    Int diskGb = ceil(3.0 * size(VCF, "G"))
+    Int diskGb = ceil(10.0 * size(VCF, "G"))
 
     runtime {
         docker : "szarate/t2t_variants"
@@ -222,7 +229,7 @@ task applySNPrecalibration {
             -truth-sensitivity-filter-level 99.8
     >>>
 
-    Int diskGb = ceil(4.0 * size(VCF, "G"))
+    Int diskGb = ceil(10.0 * size(VCF, "G"))
 
     runtime {
         docker : "szarate/t2t_variants"
@@ -263,7 +270,7 @@ task applyIndelRecalibration {
             -truth-sensitivity-filter-level 99.0
     >>>
 
-    Int diskGb = ceil(4.0 * size(VCF, "G"))
+    Int diskGb = ceil(10.0 * size(VCF, "G"))
 
     runtime {
         docker : "szarate/t2t_variants"
@@ -274,5 +281,34 @@ task applyIndelRecalibration {
 
     output {
         File recalibrated_vcf = "~{chromosome}.recalibrated.snp_indel.vcf"
+    }
+}
+
+task finalizeVCF {
+    input {
+        File VCF
+    }
+
+    String vcfName = '~{basename(VCF, ".vcf")}'
+
+    command <<<
+        bgzip -c "~{VCF}" > "~{vcfName}.vcf.gz"
+        tabix -p vcf "~{vcfName}.vcf.gz"
+    >>>
+
+    Int diskGb = ceil(2.0 * size(VCF, "G"))
+
+    runtime {
+        docker : "szarate/t2t_variants"
+        disks : "local-disk ${diskGb} SSD"
+        memory: "4G"
+        cpu : 2
+        preemptible: 3
+        maxRetries: 3
+    }
+
+    output {
+        File bgzipVCF = "~{vcfName}.vcf.gz"
+        File tabix = "~{vcfName}.vcf.gz.tbi"
     }
 }

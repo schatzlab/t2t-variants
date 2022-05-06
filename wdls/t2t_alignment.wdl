@@ -183,6 +183,8 @@ task alignLane {
         disks : "local-disk 1000 SSD"
         memory: "64G"
         cpu : 16
+        preemptible: 3
+        maxRetries: 3
     }
 
     output {
